@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Pokemon from './pokemon/Pokemon';
+import PokeAgenda from './poke_agenda';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Pokemon />
+    <PokeAgenda/>
   </React.StrictMode>,
   document.getElementById('root')
 );

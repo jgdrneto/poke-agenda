@@ -1,4 +1,5 @@
 import React from 'react';
+
 import BugLogo from '../icons/bug.svg';
 import DarkLogo from '../icons/dark.svg';
 import DragonLogo from '../icons/dragon.svg';
@@ -21,9 +22,7 @@ import WaterLogo from '../icons/water.svg';
 import '../index.css';
 
 class Pokemon extends React.Component{
-  
-	max_poke = 151;
-
+ 
   constructor(props) {
   	super(props);
     this.state = {
@@ -41,7 +40,7 @@ class Pokemon extends React.Component{
   }
 
   componentDidMount() {
-		this.updatePokemon(1);
+		this.updatePokemon(this.props.poke_id);
 	}
 
 	updatePokemon(id){
@@ -56,7 +55,6 @@ class Pokemon extends React.Component{
 		  	types: response.types,
 		  	habilities: response.habilities
 		  });
-		  console.log(response);
 		})
 		.catch(err => {console.log(err);});
 	}
@@ -137,7 +135,7 @@ class Pokemon extends React.Component{
 				case 'normal':
 					class_name = 'icon normal';
 	      	logo = NormalLogo;						
-	      	alt_name = 'Norml type';	
+	      	alt_name = 'Normal type';	
 				break;
 				case 'poison':
 					class_name = 'icon poison';
@@ -165,11 +163,7 @@ class Pokemon extends React.Component{
 	      	alt_name = 'Water type';	
 				break;
 				default :
-					case 'normal':
-					class_name = 'icon normal';
-	      	logo = NormalLogo;						
-	      	alt_name = 'Norml type';	
-				break;
+				
 			}
 
 			let logo_types = 	<div className={class_name} key={index}>
@@ -183,7 +177,6 @@ class Pokemon extends React.Component{
 	}
 
   render(){
-
   	let divs_types = this.getLogos(this.state.types);
 
 		return (
