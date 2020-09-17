@@ -19,7 +19,9 @@ import RockLogo from '../icons/rock.svg';
 import SteelLogo from '../icons/steel.svg';
 import WaterLogo from '../icons/water.svg';
 
-import '../index.css';
+
+import '../icons/icons.css'
+import './pokemon.css';
 
 class Pokemon extends React.Component{
  
