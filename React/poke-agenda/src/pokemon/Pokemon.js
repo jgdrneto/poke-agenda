@@ -28,7 +28,7 @@ class Pokemon extends React.Component{
   constructor(props) {
   	super(props);
     this.state = {
-      id : 1,
+      id : this.props.poke_id,
       name : '',
       sprites: {},
       stats : {},
@@ -45,6 +45,12 @@ class Pokemon extends React.Component{
 		this.updatePokemon(this.props.poke_id);
 	}
 
+	componentDidUpdate(prevProps){
+		if(prevProps.poke_id !== this.props.poke_id){
+			this.updatePokemon(this.props.poke_id);
+		}
+	}
+
 	updatePokemon(id){
 		fetch('https://pokeapi.co/api/v2/pokemon/'+id, {"method": "GET"})
 		.then(response => response.json())
@@ -52,7 +58,7 @@ class Pokemon extends React.Component{
 			this.setState({
 				id : response.id,
 		  	name: this.upperCase(response.name),
-		  	sprites : response.sprites,
+		  	url_image : response.sprites.other['official-artwork'].front_default,
 		  	stats: response.stats,
 		  	types: response.types,
 		  	habilities: response.habilities
@@ -179,16 +185,22 @@ class Pokemon extends React.Component{
 	}
 
   render(){
+
+  	let page={};
+
   	let divs_types = this.getLogos(this.state.types);
 
-		return (
-	  	<div className='PokemonName'>
-	  		<div className='header'>
-					<h1 className='name'> {this.state.id} - {this.state.name}</h1>
-					{divs_types}
-				</div> 
-	    </div>
-	  );    	 
+  	page = 	<div>
+					  	<div className='header'>
+								<h1 className='name'> {this.state.id} - {this.state.name}</h1>
+								{divs_types}
+							</div> 
+							<div>
+								<img className='PokeImage' onLoad={event => this.props.onUpdate()} src={this.state.url_image} alt='Pokemon'/>
+							</div>
+				    </div>
+
+		return page;
   }
 }
 
