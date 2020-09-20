@@ -19,6 +19,9 @@ import RockLogo from '../icons/rock.svg';
 import SteelLogo from '../icons/steel.svg';
 import WaterLogo from '../icons/water.svg';
 
+import ProgressBar from 'react-bootstrap/ProgressBar';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import '../icons/icons.css'
 import './pokemon.css';
@@ -31,7 +34,7 @@ class Pokemon extends React.Component{
       id : this.props.poke_id,
       name : '',
       sprites: {},
-      stats : {},
+      stats : [{base_stat : 0},{base_stat : 0},{base_stat : 0}, {base_stat : 0},{base_stat: 0},{base_stat:0}],
       types: [],
       abilities: []
   	}
@@ -55,7 +58,6 @@ class Pokemon extends React.Component{
 		fetch('https://pokeapi.co/api/v2/pokemon/'+id, {"method": "GET"})
 		.then(response => response.json())
 		.then(response => {
-
 			this.setState({
 				id : response.id,
 		  	name: this.upperCase(response.name),
@@ -75,7 +77,6 @@ class Pokemon extends React.Component{
 		for (let index = 0; index < abilities.length; index++) {
 
 			let star = [];  
-
 			if(abilities[index].is_hidden===true){
 				star = <div className='star'> {'\u2605'} </div>;
 			}
@@ -216,27 +217,30 @@ class Pokemon extends React.Component{
   	let abilities = this.getAbilities(this.state.abilities);
 
   	page = 	<div>
-					  	<div className='header'>
+					  	<div className='header item'>
 								<h2 className='name'> {this.state.id} - {this.state.name}</h2>
-								<div className='wrapper'>
+								<div className='logosTypes'>
 									{divs_types}
 								</div>
 							</div> 
-							<div>
+							<div className='item'>
 								<img className='PokeImage' onLoad={event => this.props.onUpdate()} src={this.state.url_image} alt='Pokemon'/>
 							</div>
-							<div>
-								<h5> Habilidades </h5>
-								<div>
-									<div className='abilities' style={{gridTemplateColumns: 'repeat('+ this.state.abilities.length + ', 1fr)'}}>
-										{abilities}
-									</div>
+							<div className='item itemAbility'>
+								<h5> Abilities </h5>
+								<div className='abilities' style={{gridTemplateColumns: 'repeat('+ this.state.abilities.length + ', 1fr)'}}>
+									{abilities}
 								</div>
 							</div>
-							<div>
-								<h5> Status </h5>
-								<div>
-
+							<div className='item itemStats'>
+								<h5> Stats </h5>
+								<div className='stats'>
+									<h6> HP </h6> 					<h6> {this.state.stats[0].base_stat}</h6> <div className='divProgressBar'> <ProgressBar variant='hp' max={255} now={this.state.stats[0].base_stat}/> </div>
+									<h6> Attack </h6> 			<h6> {this.state.stats[1].base_stat}</h6> <div className='divProgressBar'> <ProgressBar variant='atk' max={255} now={this.state.stats[1].base_stat}/> </div>
+									<h6> Defense </h6> 			<h6> {this.state.stats[2].base_stat}</h6> <div className='divProgressBar'> <ProgressBar variant='def' max={255} now={this.state.stats[2].base_stat}/> </div>
+									<h6> SP. Attack </h6> 	<h6> {this.state.stats[3].base_stat}</h6> <div className='divProgressBar'> <ProgressBar variant='spAtk' max={255} now={this.state.stats[3].base_stat}/> </div>
+									<h6> SP. Defense </h6> 	<h6> {this.state.stats[4].base_stat}</h6> <div className='divProgressBar'> <ProgressBar variant='spDef' max={255} now={this.state.stats[4].base_stat}/> </div>
+									<h6> Speed </h6> 				<h6> {this.state.stats[5].base_stat}</h6> <div className='divProgressBar'> <ProgressBar variant='speed' max={255} now={this.state.stats[5].base_stat}/> </div>	
 								</div>
 							</div>	
 				    </div>

@@ -1,18 +1,33 @@
 .PokeImage{
-  width: 40%;
+  width: 20%;
 }
 
 .header{
   display: inline-flex;
 }
 
+.item{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.itemAbility{
+  margin-right: 15%;
+  margin-left: 15%;
+}
+
+.itemStats{
+  margin-right: 20%;
+  margin-left: 20%;
+}
+
 .name{
-  display: inline-flex;
+  display: inline;
   margin-right: 10px;
   margin-bottom: 0px;
 }
 
-.wrapper{
+.logosTypes{
   margin: auto auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -24,7 +39,7 @@
     border-radius: 50%;
     height: 30px;
     width: 30px;
-    display: inline-flex;
+    display: inline;
     margin-right: 5px;
 }
 
@@ -47,4 +62,41 @@
 .star{
   color: yellow;
   display: inline;
+}
+
+.stats{
+  width: 70%;
+  margin: auto auto;
+  display: grid;
+  grid-template-columns: 100px 40px 1fr;
+  align-content: center;
+  align-items: center;
+}
+
+.divProgressBar{
+  margin-bottom: 8px;
+}
+
+.bg-hp{
+  background-color: red;
+}
+
+.bg-atk{
+  background-color: orange;
+}
+
+.bg-def{
+  background-color: yellow;
+}
+
+.bg-spAtk{
+  background-color: blue;
+}
+
+.bg-spDef{
+  background-color: green;
+}
+
+.bg-speed{
+  background-color: pink;
 }
