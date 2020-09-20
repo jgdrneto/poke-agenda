@@ -175,7 +175,7 @@ class Pokemon extends React.Component{
 			}
 
 			let logo_types = 	<div className={class_name} key={index}>
-	      									<img src={logo} className='iconSvg' alt={alt_name}/>
+	      									<img src={logo} className='iconSvg' alt={alt_name} />
 	      								</div>;
 
 	    logos.push(logo_types);
@@ -192,8 +192,10 @@ class Pokemon extends React.Component{
 
   	page = 	<div>
 					  	<div className='header'>
-								<h1 className='name'> {this.state.id} - {this.state.name}</h1>
-								{divs_types}
+								<h2 className='name'> {this.state.id} - {this.state.name}</h2>
+								<div className='wrapper'>
+									{divs_types}
+								</div>
 							</div> 
 							<div>
 								<img className='PokeImage' onLoad={event => this.props.onUpdate()} src={this.state.url_image} alt='Pokemon'/>

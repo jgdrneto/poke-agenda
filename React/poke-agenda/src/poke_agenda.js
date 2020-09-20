@@ -1,6 +1,9 @@
 import React from 'react';
 
+import Button from 'react-bootstrap/Button';
+
 import Pokemon from './pokemon/Pokemon'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './poke_agenda.css'
 
 class PokeAgenda extends React.Component{
@@ -49,8 +52,8 @@ class PokeAgenda extends React.Component{
   			page =	<div className='PokemonName'>
   								<Pokemon poke_id={this.state.id} onUpdate={event => this.desalock(event)}/>
   						 		<div>
-  						 			<button id = 'prev' onClick={event => this.prev(event)} disabled={this.state.disabled}> &#60; </button>
-  									<button id = 'next' onClick={event => this.next(event)} disabled={this.state.disabled}> > </button>
+  						 			<Button id = 'prev' onClick={event => this.prev(event)} disabled={this.state.disabled} size='sm'	> &#60; </Button>
+  									<Button id = 'next' onClick={event => this.next(event)} disabled={this.state.disabled} size='sm'> > </Button>
   						 		</div>
   						 	</div>;
   		break;
