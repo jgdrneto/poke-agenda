@@ -33,7 +33,7 @@ class Pokemon extends React.Component{
       sprites: {},
       stats : {},
       types: [],
-      habilities: []
+      abilities: []
   	}
   }	
 
@@ -55,16 +55,31 @@ class Pokemon extends React.Component{
 		fetch('https://pokeapi.co/api/v2/pokemon/'+id, {"method": "GET"})
 		.then(response => response.json())
 		.then(response => {
+
 			this.setState({
 				id : response.id,
 		  	name: this.upperCase(response.name),
 		  	url_image : response.sprites.other['official-artwork'].front_default,
 		  	stats: response.stats,
 		  	types: response.types,
-		  	habilities: response.habilities
+		  	abilities: response.abilities
 		  });
 		})
 		.catch(err => {console.log(err);});
+	}
+
+	getAbilities(abilities){
+		
+		let abs = [];
+		
+		for (let index = 0; index < abilities.length; index++) {
+			 
+			 let ab =  <p key={index}> {abilities[index].ability.name}</p>;
+
+			 abs.push(ab);
+		}
+		
+		return abs;
 	}
 
 	getLogos(types){
@@ -190,6 +205,8 @@ class Pokemon extends React.Component{
 
   	let divs_types = this.getLogos(this.state.types);
 
+  	let abilities = this.getAbilities(this.state.abilities);
+
   	page = 	<div>
 					  	<div className='header'>
 								<h2 className='name'> {this.state.id} - {this.state.name}</h2>
@@ -199,6 +216,12 @@ class Pokemon extends React.Component{
 							</div> 
 							<div>
 								<img className='PokeImage' onLoad={event => this.props.onUpdate()} src={this.state.url_image} alt='Pokemon'/>
+							</div>
+							<div>
+								<h5> Habilidades </h5>
+								<div className='abilities' style={{gridTemplateColumns: 'repeat('+ this.state.abilities.length + ', 1fr)'}}>
+									{abilities}
+								</div>
 							</div>
 				    </div>
 

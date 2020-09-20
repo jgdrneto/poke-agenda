@@ -27,3 +27,10 @@
     display: inline-flex;
     margin-right: 5px;
 }
+
+.abilities{
+  margin: auto auto;
+  display: grid;
+  align-content: center;
+  align-items: center;
+}
