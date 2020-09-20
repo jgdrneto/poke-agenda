@@ -73,10 +73,18 @@ class Pokemon extends React.Component{
 		let abs = [];
 		
 		for (let index = 0; index < abilities.length; index++) {
-			 
-			 let ab =  <p key={index}> {abilities[index].ability.name}</p>;
 
-			 abs.push(ab);
+			let star = [];  
+
+			if(abilities[index].is_hidden===true){
+				star = <div className='star'> {'\u2605'} </div>;
+			}
+							
+			let ab = 	<div key={index}>
+									{star}
+									<p className='pAbility'> {abilities[index].ability.name} </p>
+								</div>
+			abs.push(ab);
 		}
 		
 		return abs;
@@ -219,10 +227,18 @@ class Pokemon extends React.Component{
 							</div>
 							<div>
 								<h5> Habilidades </h5>
-								<div className='abilities' style={{gridTemplateColumns: 'repeat('+ this.state.abilities.length + ', 1fr)'}}>
-									{abilities}
+								<div>
+									<div className='abilities' style={{gridTemplateColumns: 'repeat('+ this.state.abilities.length + ', 1fr)'}}>
+										{abilities}
+									</div>
 								</div>
 							</div>
+							<div>
+								<h5> Status </h5>
+								<div>
+
+								</div>
+							</div>	
 				    </div>
 
 		return page;

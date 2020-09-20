@@ -28,9 +28,23 @@
     margin-right: 5px;
 }
 
+.divAbilities{
+  display: inline-flex;
+}
+
 .abilities{
   margin: auto auto;
   display: grid;
   align-content: center;
   align-items: center;
+}
+
+.pAbility{
+  margin-bottom: 0px;
+  display: inline;
+}
+
+.star{
+  color: yellow;
+  display: inline;
 }
