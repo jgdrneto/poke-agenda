@@ -20,6 +20,7 @@ import SteelLogo from '../icons/steel.svg';
 import WaterLogo from '../icons/water.svg';
 
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import Alert from 'react-bootstrap/Alert';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -36,7 +37,8 @@ class Pokemon extends React.Component{
       sprites: {},
       stats : [{base_stat : 0},{base_stat : 0},{base_stat : 0}, {base_stat : 0},{base_stat: 0},{base_stat:0}],
       types: [],
-      abilities: []
+      abilities: [],
+      failure: false
   	}
   }	
 
@@ -59,15 +61,23 @@ class Pokemon extends React.Component{
 		.then(response => response.json())
 		.then(response => {
 			this.setState({
-				id : response.id,
-		  	name: this.upperCase(response.name),
-		  	url_image : response.sprites.other['official-artwork'].front_default,
-		  	stats: response.stats,
-		  	types: response.types,
-		  	abilities: response.abilities
+			  	id : response.id,
+		  		name: this.upperCase(response.name),
+		  		url_image : response.sprites.other['official-artwork'].front_default,
+		  		stats: response.stats,
+		  	  types: response.types,
+		  	  abilities: response.abilities,
+		  	  failure : false
 		  });
 		})
-		.catch(err => {console.log(err);});
+		.catch(err => {
+			
+			this.setState({
+				failure : true
+			});
+
+			console.log(err);
+		});
 	}
 
 	getAbilities(abilities){
@@ -216,7 +226,16 @@ class Pokemon extends React.Component{
 
   	let abilities = this.getAbilities(this.state.abilities);
 
-  	page = 	<div>
+  	let alert = [];
+
+  	if(this.state.failure){
+  		alert = <Alert variant="danger" onClose={event => {this.setState({failure : false});this.props.onModify(event,this.state.id, this.state.failure, this.state.name)}} dismissible>
+  							<Alert.Heading>Pokemon not found!!!</Alert.Heading>
+  						</Alert>
+  	}
+
+  	page = 	<div onChange={event => this.props.onModify(event,this.state.id, this.state.failure, this.state.name)}>
+  						{alert}
 					  	<div className='header item'>
 								<h2 className='name'> {this.state.id} - {this.state.name}</h2>
 								<div className='logosTypes'>
@@ -224,7 +243,7 @@ class Pokemon extends React.Component{
 								</div>
 							</div> 
 							<div className='item'>
-								<img className='PokeImage' onLoad={event => this.props.onUpdate()} src={this.state.url_image} alt='Pokemon'/>
+								<img className='PokeImage' onLoad={event => this.props.onModify(event,this.state.id, this.state.failure,this.state.name)} src={this.state.url_image} alt='Pokemon'/>
 							</div>
 							<div className='item itemAbility'>
 								<h5> Abilities </h5>
