@@ -17,40 +17,41 @@ class PokeAgenda extends React.Component{
     this.state = {
       id : 1,
       copy_id: 1,
-      poke_name: '',
+      poke_name: 'bulbasaur',
       mode: 'pokemon',
       disabled: false 
   	}
 
     this.desalock = this.desalock.bind(this);
     this.search = this.search.bind(this);
+    this.failure = this.failure.bind(this);
   }	
 
   prev(){
   	if(this.state.id>1){
-  		this.setState({
-  			id : this.state.id-1,
-        copy_id : this.state.id-1,
-  			disabled: true
-  		});
+  		this.setState((state,props)=>({
+        id : state.id-1,
+        copy_id : state.id-1,
+        disabled: true
+      }));
+
   	}
   }
 
 
   next(){
-
-    console.log(this.state.id);
-
   	if(this.state.id<this.max_poke){
-  		this.setState({
-  			id : this.state.id+1,
-  			copy_id : this.state.id+1,
+  		this.setState((state,props)=>({
+  			id : state.id+1,
+  			copy_id : state.id+1,
         disabled: true
-  		});
+  		}));
   	}
   }
 
   search(event){
+    //console.log(this.state.id);
+    //console.log(this.state.copy_id);
 
     if(event.keyCode === 13){
       
@@ -61,7 +62,8 @@ class PokeAgenda extends React.Component{
         
         if(value !== this.state.id){
           this.setState({
-            id : value
+            id : value,
+            disabled : true
           });
         } 
       }else{
@@ -69,7 +71,8 @@ class PokeAgenda extends React.Component{
         
         if(value !== this.state.poke_name.toLowerCase()){
           this.setState({
-            id : value
+            id : value,
+            disabled : true
           });
         }
       }
@@ -77,17 +80,19 @@ class PokeAgenda extends React.Component{
     }
   }
 
-  desalock(event,newID,failure,pokeName){
-
-    if(failure){
-      newID = this.state.copy_id;
-    } 
-  	
+  failure(event,newID){
     this.setState({
-      id : newID,
-      poke_name : pokeName,  			
+      id: newID,
       disabled: false
-  	});
+    });
+  }
+
+  desalock(event,newID,pokeName){
+    this.setState({    
+      id : newID,
+      poke_name : pokeName.toLowerCase(),
+      disabled: false,
+    });
   }
 
   render(){
@@ -98,10 +103,10 @@ class PokeAgenda extends React.Component{
   			page =	<div className='PokemonName'>
                   <div>
                   <Form.Group className='searchBar'>
-                    <Form.Control type="text" placeholder="Search..." onKeyUp={this.search}/>
+                    <Form.Control type="text" placeholder="Search..." onKeyUp={this.search} disabled={this.state.disabled}/>
                     </Form.Group>
                   </div>
-  								<Pokemon poke_id={this.state.id} onModify={this.desalock}/>
+  								<Pokemon poke_id={this.state.id} onModify={this.desalock} onFailure={this.failure}/>
   						 		<div>
   						 			<Button id = 'prev' onClick={event => this.prev(event)} disabled={this.state.disabled} size='sm'	> &#60; </Button>
   									<Button id = 'next' onClick={event => this.next(event)} disabled={this.state.disabled} size='sm'> > </Button>

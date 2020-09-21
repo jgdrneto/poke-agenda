@@ -31,6 +31,7 @@ class Pokemon extends React.Component{
  
   constructor(props) {
   	super(props);
+  	this.text_name = React.createRef();
     this.state = {
       id : this.props.poke_id,
       name : '',
@@ -228,13 +229,15 @@ class Pokemon extends React.Component{
 
   	let alert = [];
 
+
+
   	if(this.state.failure){
-  		alert = <Alert variant="danger" onClose={event => {this.setState({failure : false});this.props.onModify(event,this.state.id, this.state.failure, this.state.name)}} dismissible>
+  		alert = <Alert variant="danger" onClose={event => {this.setState({failure : false}); this.props.onFailure(event,this.state.id)}} dismissible>
   							<Alert.Heading>Pokemon not found!!!</Alert.Heading>
   						</Alert>
   	}
 
-  	page = 	<div onChange={event => this.props.onModify(event,this.state.id, this.state.failure, this.state.name)}>
+  	page = 	<div ref={this.textInput}>
   						{alert}
 					  	<div className='header item'>
 								<h2 className='name'> {this.state.id} - {this.state.name}</h2>
@@ -243,7 +246,7 @@ class Pokemon extends React.Component{
 								</div>
 							</div> 
 							<div className='item'>
-								<img className='PokeImage' onLoad={event => this.props.onModify(event,this.state.id, this.state.failure,this.state.name)} src={this.state.url_image} alt='Pokemon'/>
+								<img className='PokeImage' onLoad={event => this.props.onModify(event,this.state.id,this.state.name)} src={this.state.url_image} alt='Pokemon'/>
 							</div>
 							<div className='item itemAbility'>
 								<h5> Abilities </h5>
