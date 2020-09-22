@@ -23,7 +23,7 @@ class Searcher extends React.Component{
     if(prevProps.search_failure !== this.props.search_failure){
       this.setState((state, props) => ({
         failure : props.search_failure
-      }));
+      }));   
     }
 
 	}

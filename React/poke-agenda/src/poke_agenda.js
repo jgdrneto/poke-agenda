@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 
 import Pokemon from './pokemon/Pokemon'
 import Searcher from './searcher/Searcher'
@@ -17,8 +16,6 @@ class PokeAgenda extends React.Component{
   	super(props);
     this.state = {
       id : 1,
-      copy_id: 1,
-      poke_name: 'bulbasaur',
       mode: 'pokemon',
       disabled: false,
       search_failure: false 
@@ -26,9 +23,8 @@ class PokeAgenda extends React.Component{
 
     this.desalock = this.desalock.bind(this);
     this.search = this.search.bind(this);
-    this.search2 = this.search2.bind(this);
     this.closeAlert = this.closeAlert.bind(this);
-    this.failure = this.failure.bind(this);
+    this.responseRequest = this.responseRequest.bind(this);
   }	
 
   prev(){
@@ -53,29 +49,13 @@ class PokeAgenda extends React.Component{
   	}
   }
 
-  search2(event){
+  search(event){
     if(event.keyCode === 13){
       console.log(event.target.value);
-      
-      let value;
 
-      if(!isNaN(event.target.value)){
-        value = Number(event.target.value);
-        
-        if(value !== this.state.id){
-          this.setState({
-            id : value
-          });
-        } 
-      }else{
-        value = event.target.value.toLowerCase();
-        
-        if(value !== this.state.poke_name.toLowerCase()){
-          this.setState({
-            id : value
-          });
-        }
-      }
+      this.setState({
+        id : event.target.value
+      });
     }else{
       this.setState({
         search_failure : false
@@ -89,48 +69,24 @@ class PokeAgenda extends React.Component{
       });
   }
 
-  search(event){
-    //console.log(this.state.id);
-    //console.log(this.state.copy_id);
+  responseRequest(failure,newID,pokeName){
+    console.log(failure);
 
-    if(event.keyCode === 13){
-      
-      let value;
+    let f=false;
 
-      if(!isNaN(event.target.value)){
-        value = Number(event.target.value);
-        
-        if(value !== this.state.id){
-          this.setState({
-            id : value,
-            disabled : true
-          });
-        } 
-      }else{
-        value = event.target.value.toLowerCase();
-        
-        if(value !== this.state.poke_name.toLowerCase()){
-          this.setState({
-            id : value,
-            disabled : true
-          });
-        }
-      }
-      event.target.value = '';
+    if(this.state.search_failure || failure){
+      f = true;
     }
-  }
 
-  failure(event,newID){
-    this.setState({
+    this.setState((state,props) => ({
       id: newID,
-      disabled: false
-    });
+      poke_name : pokeName.toLowerCase(),
+      search_failure: f
+    })); 
   }
 
-  desalock(event,newID,pokeName){
+  desalock(event){
     this.setState({    
-      id : newID,
-      poke_name : pokeName.toLowerCase(),
       disabled: false,
     });
   }
@@ -141,8 +97,8 @@ class PokeAgenda extends React.Component{
   	switch(this.state.mode){
   		case 'pokemon' :
   			page =	<div className='PokemonName'>
-                  <Searcher search_failure={this.state.search_failure} onKeyUp={this.search2} onCloseAlert={this.closeAlert}/>
-  								<Pokemon poke_id={this.state.id} onModify={this.desalock} onFailure={this.failure}/>
+                  <Searcher search_failure={this.state.search_failure} onKeyUp={this.search} onCloseAlert={this.closeAlert}/>
+  								<Pokemon poke_id={this.state.id} onModify={this.desalock} onRequest={this.responseRequest}/>
   						 		<div>
   						 			<Button id = 'prev' onClick={event => this.prev(event)} disabled={this.state.disabled} size='sm'	> &#60; </Button>
   									<Button id = 'next' onClick={event => this.next(event)} disabled={this.state.disabled} size='sm'> > </Button>
