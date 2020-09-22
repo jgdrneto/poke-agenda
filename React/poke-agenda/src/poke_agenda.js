@@ -97,10 +97,10 @@ class PokeAgenda extends React.Component{
   		case 'pokemon' :
   			page =	<div className='PokemonName'>
                   <Searcher search_failure={this.state.search_failure} onKeyUp={this.search} onCloseAlert={this.closeAlert}/>
-  								<Pokemon poke_id={this.state.id} onModify={this.desalock} onRequest={this.responseRequest}/>
-  						 		<div>
-  						 			<Button id = 'prev' onClick={event => this.prev(event)} disabled={this.state.disabled} size='sm'	> &#60; </Button>
-  									<Button id = 'next' onClick={event => this.next(event)} disabled={this.state.disabled} size='sm'> > </Button>
+  								<div className='carousel'>
+                    <Button  id = 'prev' onClick={event => this.prev(event)} disabled={this.state.disabled} size='sm'  > &#60; </Button>
+                    <Pokemon poke_id={this.state.id} onModify={this.desalock} onRequest={this.responseRequest}/>
+                    <Button id = 'next' onClick={event => this.next(event)} disabled={this.state.disabled} size='sm'> > </Button>  						 			
   						 		</div>
   						 	</div>;
   		break;

@@ -226,15 +226,15 @@ class Pokemon extends React.Component{
   	let abilities = this.getAbilities(this.state.abilities);
 
   	page = 	<div>
-					  	<div className='header item'>
-								<h2 className='name'> {this.state.id} - {this.state.name}</h2>
-								<div className='logosTypes'>
-									{divs_types}
-								</div>
-							</div> 
 							<div className='item'>
 								<img className='PokeImage' onLoad={event => this.props.onModify(event)} src={this.state.url_image} alt='Pokemon'/>
 							</div>
+							<div className='header item'>
+								<h2 className='name'> {this.state.id} - {this.state.name}</h2>
+								<div className='logosTypes' style={{gridTemplateColumns: 'repeat('+ divs_types.length + ', 1fr)'}}>
+									{divs_types}
+								</div>
+							</div> 
 							<div className='item itemAbility'>
 								<h5> Abilities </h5>
 								<div className='abilities' style={{gridTemplateColumns: 'repeat('+ this.state.abilities.length + ', 1fr)'}}>

@@ -4,3 +4,11 @@
   padding: 5px;
   text-align: center;
 }
+
+.carousel{
+  margin: auto auto;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-content: center;
+  align-items: center;
+}
