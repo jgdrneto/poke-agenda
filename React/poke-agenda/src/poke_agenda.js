@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import Pokemon from './pokemon/Pokemon'
+import Searcher from './searcher/Searcher'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './poke_agenda.css'
@@ -19,11 +20,14 @@ class PokeAgenda extends React.Component{
       copy_id: 1,
       poke_name: 'bulbasaur',
       mode: 'pokemon',
-      disabled: false 
+      disabled: false,
+      search_failure: false 
   	}
 
     this.desalock = this.desalock.bind(this);
     this.search = this.search.bind(this);
+    this.search2 = this.search2.bind(this);
+    this.closeAlert = this.closeAlert.bind(this);
     this.failure = this.failure.bind(this);
   }	
 
@@ -47,6 +51,42 @@ class PokeAgenda extends React.Component{
         disabled: true
   		}));
   	}
+  }
+
+  search2(event){
+    if(event.keyCode === 13){
+      console.log(event.target.value);
+      
+      let value;
+
+      if(!isNaN(event.target.value)){
+        value = Number(event.target.value);
+        
+        if(value !== this.state.id){
+          this.setState({
+            id : value
+          });
+        } 
+      }else{
+        value = event.target.value.toLowerCase();
+        
+        if(value !== this.state.poke_name.toLowerCase()){
+          this.setState({
+            id : value
+          });
+        }
+      }
+    }else{
+      this.setState({
+        search_failure : false
+      });
+    }
+  }
+
+  closeAlert(event){
+      this.setState({
+        search_failure : false
+      });
   }
 
   search(event){
@@ -101,11 +141,7 @@ class PokeAgenda extends React.Component{
   	switch(this.state.mode){
   		case 'pokemon' :
   			page =	<div className='PokemonName'>
-                  <div>
-                  <Form.Group className='searchBar'>
-                    <Form.Control type="text" placeholder="Search..." onKeyUp={this.search} disabled={this.state.disabled}/>
-                    </Form.Group>
-                  </div>
+                  <Searcher search_failure={this.state.search_failure} onKeyUp={this.search2} onCloseAlert={this.closeAlert}/>
   								<Pokemon poke_id={this.state.id} onModify={this.desalock} onFailure={this.failure}/>
   						 		<div>
   						 			<Button id = 'prev' onClick={event => this.prev(event)} disabled={this.state.disabled} size='sm'	> &#60; </Button>
