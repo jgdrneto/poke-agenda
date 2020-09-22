@@ -18,7 +18,8 @@ class PokeAgenda extends React.Component{
     this.state = {
       id : 1,
       mode: 'pokemon',
-      disabled: false,
+      disabled_prev: true,
+      disabled_next: false,
       search_failure: false 
   	}
 
@@ -33,9 +34,9 @@ class PokeAgenda extends React.Component{
   		this.setState((state,props)=>({
         id : state.id-1,
         copy_id : state.id-1,
-        disabled: true
+        disabled_prev: true,
+        disabled_next: true
       }));
-
   	}
   }
 
@@ -44,7 +45,8 @@ class PokeAgenda extends React.Component{
   		this.setState((state,props)=>({
   			id : state.id+1,
   			copy_id : state.id+1,
-        disabled: true
+        disabled_prev: true,
+        disabled_next: true
   		}));
   	}
   }
@@ -65,9 +67,6 @@ class PokeAgenda extends React.Component{
       this.setState({
         search_failure : false
       });
-
-
-
   }
 
   responseRequest(failure,newID,pokeName){
@@ -85,8 +84,21 @@ class PokeAgenda extends React.Component{
   }
 
   desalock(event){
+
+    let d_next = false;
+    let d_prev = false;
+
+    if(this.state.id===1){
+      d_prev = true;
+    }else{
+      if(this.state.id === this.max_poke){
+        d_next = true;
+      }
+    }
+
     this.setState({    
-      disabled: false,
+      disabled_prev: d_prev,
+      disabled_next: d_next
     });
   }
 
@@ -98,9 +110,9 @@ class PokeAgenda extends React.Component{
   			page =	<div className='PokemonName'>
                   <Searcher search_failure={this.state.search_failure} onKeyUp={this.search} onCloseAlert={this.closeAlert}/>
   								<div className='carousel'>
-                    <Button  id = 'prev' onClick={event => this.prev(event)} disabled={this.state.disabled} size='sm'  > &#60; </Button>
+                    <Button  id = 'prev' onClick={event => this.prev(event)} disabled={this.state.disabled_prev} size='sm'  > &#60; </Button>
                     <Pokemon poke_id={this.state.id} onModify={this.desalock} onRequest={this.responseRequest}/>
-                    <Button id = 'next' onClick={event => this.next(event)} disabled={this.state.disabled} size='sm'> > </Button>  						 			
+                    <Button id = 'next' onClick={event => this.next(event)} disabled={this.state.disabled_next} size='sm'> > </Button>  						 			
   						 		</div>
   						 	</div>;
   		break;
