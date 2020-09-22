@@ -54,7 +54,7 @@ class PokeAgenda extends React.Component{
   search(event){
     if(event.keyCode === 13){
       this.setState({
-        id : event.target.value
+        id : event.target.value.toLowerCase()
       });
     }else{
       this.setState({
