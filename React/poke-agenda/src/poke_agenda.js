@@ -14,6 +14,7 @@ class PokeAgenda extends React.Component{
 
 	constructor(props) {
   	super(props);
+    
     this.state = {
       id : 1,
       mode: 'pokemon',
@@ -38,7 +39,6 @@ class PokeAgenda extends React.Component{
   	}
   }
 
-
   next(){
   	if(this.state.id<this.max_poke){
   		this.setState((state,props)=>({
@@ -51,8 +51,6 @@ class PokeAgenda extends React.Component{
 
   search(event){
     if(event.keyCode === 13){
-      console.log(event.target.value);
-
       this.setState({
         id : event.target.value
       });
@@ -67,11 +65,12 @@ class PokeAgenda extends React.Component{
       this.setState({
         search_failure : false
       });
+
+
+
   }
 
   responseRequest(failure,newID,pokeName){
-    console.log(failure);
-
     let f=false;
 
     if(this.state.search_failure || failure){

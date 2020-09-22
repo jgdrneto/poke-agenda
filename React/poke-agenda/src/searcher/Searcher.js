@@ -9,13 +9,14 @@ class Searcher extends React.Component{
  
   constructor(props) {
   	super(props);
+    this.textInput = React.createRef();
     this.state = {
       failure : false
   	}
   }	
 
   componentDidMount() {
-		
+		 this.textInput.current.focus();
 	}
 
 	componentDidUpdate(prevProps){
@@ -23,7 +24,8 @@ class Searcher extends React.Component{
     if(prevProps.search_failure !== this.props.search_failure){
       this.setState((state, props) => ({
         failure : props.search_failure
-      }));   
+      }));
+      this.textInput.current.focus();   
     }
 
 	}
@@ -42,7 +44,7 @@ class Searcher extends React.Component{
 
   	page = 	<div>
               <Form.Group className='searchBar'>
-              	<Form.Control type='text' placeholder='Search...' onKeyUp={ event => this.props.onKeyUp(event)}/>
+              	<Form.Control ref={this.textInput} type='text' placeholder='Search...' onKeyUp={ event => this.props.onKeyUp(event)}/>
               </Form.Group>
             	{alert}
             </div>
