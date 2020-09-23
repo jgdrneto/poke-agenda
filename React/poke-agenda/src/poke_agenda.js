@@ -33,7 +33,6 @@ class PokeAgenda extends React.Component{
   	if(this.state.id>1){
   		this.setState((state,props)=>({
         id : state.id-1,
-        copy_id : state.id-1,
         disabled_prev: true,
         disabled_next: true
       }));
@@ -44,7 +43,6 @@ class PokeAgenda extends React.Component{
   	if(this.state.id<this.max_poke){
   		this.setState((state,props)=>({
   			id : state.id+1,
-  			copy_id : state.id+1,
         disabled_prev: true,
         disabled_next: true
   		}));

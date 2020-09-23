@@ -2,10 +2,10 @@
   <div class='PokemonName'>
     <h1>PokéAgenda-Vue</h1>
     <Searcher :failure="failure" @search="search"/>
-    <Pokemon/>
-    <div>
-      <b-button id = 'prev' size='sm'> &#60; </b-button>
-      <b-button id = 'next' size='sm'> > </b-button>
+    <div class="carousel">
+      <b-button id = 'prev' @click="prev" :disabled="disabled_prev" size='lg'> &#60; </b-button>
+      <Pokemon/>
+      <b-button id = 'next' @click="next" :disabled="disabled_next" size='lg'> > </b-button>
     </div>
   </div>  
 </template>
@@ -18,17 +18,32 @@ import Searcher from './Searcher'
 export default {
   components: { Searcher, Pokemon },
   data: () => ({
-    id : 1,
-    copy_id: 1,
-    poke_name: 'bulbasaur',
+    max_poke: 151,
+    id: 1,
     mode: 'pokemon',
-    disabled: false ,
-    failure: false
+    disabled_prev: true,
+    disabled_next: false,
+    failure: false 
   }),
   methods: {
     search(value) {
       console.log(value);
-    }  
+    },
+    prev(){
+      if(this.id>1){
+        this.id -= 1;
+        this.disabled_prev = true;
+        this.disabled_next = true;
+      }
+    },
+    next(){
+      if(this.id<this.max_poke){
+        this.id +=1;
+        this.disabled_prev = true;
+        this.disabled_next = true;
+        console.log('next');
+      }
+    }   
   }   
 }
 </script>
