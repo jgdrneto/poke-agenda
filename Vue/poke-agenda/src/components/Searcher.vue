@@ -3,7 +3,7 @@
     <b-form-group  class="searchBar">
       <b-form-input ref="search" v-model="text" @keyup.enter.native="searchID" type="text" placeholder="Search..." />
     </b-form-group>
-    <b-alert v-model="search_failure" variant="danger" @dismissed="closeDialog('teste')" dismissible>
+    <b-alert v-model="search_failure" variant="danger" @dismissed="closeDialog" dismissible>
       Pokemon not found!!!
     </b-alert>
   </div>  
@@ -13,18 +13,24 @@
   export default {
     props: ['failure'],
     data: (props) => ({
-      search_failure: props.failure,
-      text: ''
+      text: '',
+      search_failure: props.failure
     }),
     mounted() {
       this.$refs.search.focus();
     },
+    updated(){
+      this.$nextTick(() => {
+
+      });
+    },
     methods: {
-      closeDialog() {
-        this.$refs.search.focus();
-      },
       searchID(){
         this.$emit('search',this.text);
+        this.$refs.search.focus();
+      },
+      closeDialog(){
+        this.$emit('close');
         this.$refs.search.focus();
       }
     }

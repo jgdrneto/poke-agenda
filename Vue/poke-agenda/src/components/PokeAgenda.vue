@@ -1,7 +1,7 @@
 <template>
   <div class='PokemonName'>
-    <h1>PokéAgenda-Vue</h1>
-    <Searcher :failure="failure" @search="search"/>
+    <h1>PokéAgenda-Vue </h1>
+    <Searcher :key="failure" :failure="failure" @close="close" @search="search"/>
     <div class="carousel">
       <b-button id = 'prev' @click="prev" :disabled="disabled_prev" size='lg'> &#60; </b-button>
       <Pokemon/>
@@ -23,11 +23,15 @@ export default {
     mode: 'pokemon',
     disabled_prev: true,
     disabled_next: false,
-    failure: false 
+    failure: false
   }),
   methods: {
     search(value) {
       console.log(value);
+      this.failure = !this.failure;
+    },
+    close(){
+      this.failure = false;
     },
     prev(){
       if(this.id>1){
@@ -37,6 +41,8 @@ export default {
       }
     },
     next(){
+      console.log(this.failure);
+
       if(this.id<this.max_poke){
         this.id +=1;
         this.disabled_prev = true;
@@ -44,6 +50,8 @@ export default {
         console.log('next');
       }
     }   
+  },
+  computed:{
   }   
 }
 </script>
