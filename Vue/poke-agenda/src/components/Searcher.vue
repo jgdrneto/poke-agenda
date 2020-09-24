@@ -3,7 +3,7 @@
     <b-form-group  class="searchBar">
       <b-form-input ref="search" v-model="text" @keyup.enter.native="searchID" type="text" placeholder="Search..." />
     </b-form-group>
-    <b-alert v-model="search_failure" variant="danger" @dismissed="closeDialog" dismissible>
+    <b-alert :show="failure" variant="danger" @dismissed="closeDialog" dismissible>
       Pokemon not found!!!
     </b-alert>
   </div>  
@@ -12,9 +12,8 @@
 <script>
   export default {
     props: ['failure'],
-    data: (props) => ({
-      text: '',
-      search_failure: props.failure
+    data: () => ({
+      text: ''
     }),
     mounted() {
       this.$refs.search.focus();

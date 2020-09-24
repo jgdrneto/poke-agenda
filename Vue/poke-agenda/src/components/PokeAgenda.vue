@@ -1,7 +1,7 @@
 <template>
   <div class='PokemonName'>
     <h1>PokéAgenda-Vue </h1>
-    <Searcher :key="failure" :failure="failure" @close="close" @search="search"/>
+    <Searcher :failure="failure" @close="close" @search="search"/>
     <div class="carousel">
       <b-button id = 'prev' @click="prev" :disabled="disabled_prev" size='lg'> &#60; </b-button>
       <Pokemon/>
