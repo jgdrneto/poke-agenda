@@ -34,6 +34,9 @@
     props: {
       poke_id :{
         required: true
+      },
+      max_poke:{
+        required: true
       } 
     },
     data: (props) => ({
@@ -68,7 +71,7 @@
         .then(response => response.json())
         .then(response => {
 
-          if(response.id<152){
+          if(response.id<=this.max_poke){
 
             let name = this.upperCase(response.name);
 

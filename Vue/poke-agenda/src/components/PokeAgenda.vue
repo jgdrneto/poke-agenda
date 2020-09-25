@@ -4,7 +4,7 @@
     <Searcher :failure="failure" @close="close" @search="search"/>
     <div class="carousel">
       <b-button id = 'prev' @click="prev" :disabled="disabled_prev" size='lg'> &#60; </b-button>
-      <Pokemon  :poke_id="id" @modify="desalock" @request="responseRequest"/>
+      <Pokemon  :poke_id="id" :max_poke="max_poke" @modify="desalock" @request="responseRequest"/>
       <b-button id = 'next' @click="next" :disabled="disabled_next" size='lg'> > </b-button>
     </div>
   </div>  
