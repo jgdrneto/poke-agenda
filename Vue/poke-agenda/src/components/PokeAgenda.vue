@@ -77,7 +77,9 @@ export default {
       this.failure = f;
       this.id = newID;
 
-      this.desalock();
+      if(failure){
+        this.desalock();
+      }
     }   
   },
   computed:{

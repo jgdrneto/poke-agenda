@@ -68,16 +68,21 @@
         .then(response => response.json())
         .then(response => {
 
-          let name = this.upperCase(response.name);
+          if(response.id<152){
 
-          this.id = response.id;
-          this.name = name;
-          this.url_image = response.sprites.other['official-artwork'].front_default;
-          this.stats = response.stats;
-          this.types = response.types;
-          this.abilities= response.abilities
+            let name = this.upperCase(response.name);
 
-          this.$emit('request',false,response.id);
+            this.id = response.id;
+            this.name = name;
+            this.url_image = response.sprites.other['official-artwork'].front_default;
+            this.stats = response.stats;
+            this.types = response.types;
+            this.abilities= response.abilities
+
+            this.$emit('request',false,response.id);
+          }else{
+            this.$emit('request',true,this.id);
+          }
         })
         .catch(err => {
           
