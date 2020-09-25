@@ -7,12 +7,14 @@
       <h2 class='name'> {{this.id}} - {{this.name}}</h2>
       <div class='logosTypes' :style="setGridColumns(this.types.length)" >
         <!--{divs_types}-->
+        <div v-for="(value,index) in this.types" class="icon" :class="value.type.name" :key="index">
+            <img :src="getLogo(value.type.name)" class="iconSvg" :alt="value.type.name + ' type'" />
+        </div>
       </div>
     </div> 
     <div class='item itemAbility'>
       <h5> Abilities </h5>
       <div class='abilities' :style="setGridColumns(this.abilities.length)">
-        <!--{abilities}-->
         <div v-for="(value,index) in this.abilities" :key="index">
           <div v-if="value.is_hidden" class="star"> &#9733; </div>
           <p class="pAbility"> {{value.ability.name}} </p>
@@ -109,6 +111,9 @@
       },
       setGridColumns(length){
         return { gridTemplateColumns: 'repeat(' + length +', 1fr)'};
+      },
+      getLogo(name){
+        return require("../assets/icons/"+name+".svg")
       }
     },
     computed:{
@@ -222,4 +227,92 @@
 .bg-speed{
   background-color: pink;
 }
+
+/*Icon Style*/
+
+.iconSvg {
+    height: 60%;
+    width: 60%;
+    margin: 20%;
+}
+
+.icon:hover{
+    filter: saturate(200%);
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.bug {
+    background: #92BC2C;
+}
+
+.dark {
+    background: #595761;
+}
+
+.dragon {
+    background: #0C69C8;
+}
+
+.electric {
+    background: #F2D94E;
+}
+
+.fire {
+    background: #FBA54C;
+}
+
+.fairy {
+    background: #EE90E6;
+}
+
+.fighting {
+    background: #D3425F;
+}
+
+.flying {
+    background: #A1BBEC;
+}
+
+.ghost {
+    background: #5F6DBC;
+}
+
+.grass {
+    background: #5FBD58;
+}
+
+.ground {
+    background: #DA7C4D;
+}
+
+.ice {
+    background: #75D0C1;
+}
+
+.normal {
+    background: #A0A29F;
+}
+
+.poison {
+    background: #B763CF;
+}
+
+.psychic {
+    background: #FA8581;
+}
+
+.rock {
+    background: #C9BB8A;
+}
+
+.steel {
+    background: #5695A3;
+}
+
+.water {
+    background: #539DDF;
+}
+
+
 </style>
