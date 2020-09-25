@@ -1,18 +1,22 @@
 <template>
   <div>
     <div class='item'>
-      <img class='PokeImage' @load="$emit('modify')" :src="url_image" alt='Pokemon'/>
+      <img class='PokeImage' @load="$emit('modify')" :src="this.url_image" alt='Pokemon'/>
     </div>
     <div class='header item'>
       <h2 class='name'> {{this.id}} - {{this.name}}</h2>
-      <div class='logosTypes'> <!--style={{gridTemplateColumns: 'repeat('+ divs_types.length + ', 1fr)'}}-->
+      <div class='logosTypes' :style="setGridColumns(this.types.length)" >
         <!--{divs_types}-->
       </div>
     </div> 
     <div class='item itemAbility'>
       <h5> Abilities </h5>
-      <div class='abilities'> <!--style={{gridTemplateColumns: 'repeat('+ this.state.abilities.length + ', 1fr)'}}-->
+      <div class='abilities' :style="setGridColumns(this.abilities.length)">
         <!--{abilities}-->
+        <div v-for="(value,index) in this.abilities" :key="index">
+          <div v-if="value.is_hidden" class="star"> &#9733; </div>
+          <p class="pAbility"> {{value.ability.name}} </p>
+        </div>
       </div>
     </div>
     <div class='item itemStats'>
@@ -36,6 +40,7 @@
         required: true
       },
       max_poke:{
+        type: Number,
         required: true
       } 
     },
@@ -46,7 +51,8 @@
       url_image: '',
       stats : [{base_stat : 0},{base_stat : 0},{base_stat : 0}, {base_stat : 0},{base_stat: 0},{base_stat:0}],
       types: [],
-      abilities: [] 
+      abilities: [],
+      size: 2 
     }),
     watch: { 
       poke_id: function(newVal) { // watch it
@@ -100,8 +106,15 @@
       },
       getLogos(types){
         return types;
+      },
+      setGridColumns(length){
+        return { gridTemplateColumns: 'repeat(' + length +', 1fr)'};
       }
+    },
+    computed:{
+      
     }
+
   }
 </script>
 
