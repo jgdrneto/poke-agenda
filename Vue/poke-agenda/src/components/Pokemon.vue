@@ -1,18 +1,99 @@
 <template>
-  <div >
+  <div>
+    <div class='item'>
+      <img class='PokeImage' @load="$emit('modify')" :src="url_image" alt='Pokemon'/>
+    </div>
+    <div class='header item'>
+      <h2 class='name'> {{this.id}} - {{this.name}}</h2>
+      <div class='logosTypes'> <!--style={{gridTemplateColumns: 'repeat('+ divs_types.length + ', 1fr)'}}-->
+        <!--{divs_types}-->
+      </div>
+    </div> 
+    <div class='item itemAbility'>
+      <h5> Abilities </h5>
+      <div class='abilities'> <!--style={{gridTemplateColumns: 'repeat('+ this.state.abilities.length + ', 1fr)'}}-->
+        <!--{abilities}-->
+      </div>
+    </div>
+    <div class='item itemStats'>
+      <h5> Stats </h5>
+      <div class="stats">
+        <h6> HP </h6>           <h6> {{this.stats[0].base_stat}}</h6> <div class="divProgressBar"> <b-progress variant="hp" :max="255" :value="this.stats[0].base_stat"></b-progress> </div>
+        <h6> Attack </h6>       <h6> {{this.stats[1].base_stat}}</h6> <div class="divProgressBar"> <b-progress variant="atk" :max="255" :value="this.stats[1].base_stat"/> </div>
+        <h6> Defense </h6>      <h6> {{this.stats[2].base_stat}}</h6> <div class="divProgressBar"> <b-progress variant="def" :max="255" :value="this.stats[2].base_stat"/> </div>
+        <h6> SP. Attack </h6>   <h6> {{this.stats[3].base_stat}}</h6> <div class="divProgressBar"> <b-progress variant="spAtk" :max="255" :value="this.stats[3].base_stat"/> </div>
+        <h6> SP. Defense </h6>  <h6> {{this.stats[4].base_stat}}</h6> <div class="divProgressBar"> <b-progress variant="spDef" :max="255" :value="this.stats[4].base_stat"/> </div>
+        <h6> Speed </h6>        <h6> {{this.stats[5].base_stat}}</h6> <div class="divProgressBar"> <b-progress variant="speed" :max="255" :value="this.stats[5].base_stat"/> </div>
+      </div>
+    </div>  
   </div>  
 </template>
 
 <script>
   export default {
-    data: () => ({
-      id : 1,
+    props: {
+      poke_id :{
+        required: true
+      } 
+    },
+    data: (props) => ({
+      id : props.poke_id,
       name : '',
       sprites: {},
+      url_image: '',
       stats : [{base_stat : 0},{base_stat : 0},{base_stat : 0}, {base_stat : 0},{base_stat: 0},{base_stat:0}],
       types: [],
       abilities: [] 
-    })
+    }),
+    watch: { 
+      poke_id: function(newVal) { // watch it
+        this.updatePokemon(newVal);
+      }
+    },
+    created(){
+      this.updatePokemon(this.poke_id);
+    },
+    beforeUpdate(){
+      
+    },
+    updated(){
+      
+    },
+    methods: {
+      upperCase(word){
+        return word[0].toUpperCase() + word.slice(1);
+      },
+      updatePokemon(id){
+        fetch('https://pokeapi.co/api/v2/pokemon/'+id, {"method": "GET"})
+        .then(response => response.json())
+        .then(response => {
+
+          let name = this.upperCase(response.name);
+
+          this.id = response.id;
+          this.name = name;
+          this.url_image = response.sprites.other['official-artwork'].front_default;
+          this.stats = response.stats;
+          this.types = response.types;
+          this.abilities= response.abilities
+
+          this.$emit('request',false,response.id);
+        })
+        .catch(err => {
+          
+          this.$emit('request',true,this.id);
+
+          console.log(err);
+        });
+      },
+      getAbilities(abilities){
+      
+        return abilities;
+      },
+      getLogos(types){
+        return types;
+      }
+    }
   }
 </script>
 

@@ -4,7 +4,7 @@
     <Searcher :failure="failure" @close="close" @search="search"/>
     <div class="carousel">
       <b-button id = 'prev' @click="prev" :disabled="disabled_prev" size='lg'> &#60; </b-button>
-      <Pokemon/>
+      <Pokemon  :poke_id="id" @modify="desalock" @request="responseRequest"/>
       <b-button id = 'next' @click="next" :disabled="disabled_next" size='lg'> > </b-button>
     </div>
   </div>  
@@ -27,8 +27,9 @@ export default {
   }),
   methods: {
     search(value) {
-      console.log(value);
-      this.failure = !this.failure;
+      this.id = value.toLowerCase();
+      this.disabled_prev = true;
+      this.disabled_next = true;  
     },
     close(){
       this.failure = false;
@@ -41,14 +42,42 @@ export default {
       }
     },
     next(){
-      console.log(this.failure);
+      //console.log(this);
 
       if(this.id<this.max_poke){
         this.id +=1;
         this.disabled_prev = true;
         this.disabled_next = true;
-        console.log('next');
       }
+    },
+    desalock(){
+
+      let d_next = false;
+      let d_prev = false;
+
+      if(this.id===1){
+        d_prev = true;
+      }else{
+        if(this.id === this.max_poke){
+          d_next = true;
+        }
+      }
+
+      this.disabled_prev = d_prev;
+      this.disabled_next = d_next;
+    },
+    responseRequest(failure, newID){
+      
+      let f=false;
+
+      if(this.failure || failure){
+        f = true;
+      }
+
+      this.failure = f;
+      this.id = newID;
+
+      this.desalock();
     }   
   },
   computed:{
