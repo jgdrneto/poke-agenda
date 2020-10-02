@@ -67,6 +67,10 @@ export class PokemonComponent implements OnInit {
     return { gridTemplateColumns: 'repeat(' + length +', 1fr)'};
   }
 
+  getLogo(name){
+    return "../assets/icons/"+name+".svg";
+  }
+
   ngOnInit(): void {
   	this.updatePokemon(this.poke_id);
   }
