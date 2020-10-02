@@ -1,0 +1,9 @@
+<div>
+  <div class="searchBar">
+  	<input #searchInput id="typeahead-basic" type="text" placeholder="Search..." class="form-control" (keyup.enter)="onSendText($event)"/>
+  </div>
+  <!--<ngb-alert :show="failure" variant="danger" @dismissed="closeDialog" dismissible>-->
+  <ngb-alert *ngIf="failure" type="danger" (close)="onCloseAlert($event)">
+    Pokemon not found!!!
+  </ngb-alert>
+</div>
