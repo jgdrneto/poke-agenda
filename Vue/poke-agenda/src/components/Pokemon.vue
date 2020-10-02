@@ -6,7 +6,6 @@
     <div class='header item'>
       <h2 class='name'> {{this.id}} - {{this.name}}</h2>
       <div class='logosTypes' :style="setGridColumns(this.types.length)" >
-        <!--{divs_types}-->
         <div v-for="(value,index) in this.types" class="icon" :class="value.type.name" :key="index">
             <img :src="getLogo(value.type.name)" class="iconSvg" :alt="value.type.name + ' type'" />
         </div>

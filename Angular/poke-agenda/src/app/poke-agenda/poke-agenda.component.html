@@ -3,8 +3,7 @@
 	<app-searcher [failure]="failure" (search)="onSearch($event)" (close)="onClose($event)"></app-searcher>
 	<div class="carousel">
       <button type="button" id = 'prev' class="btn btn-primary" (click)="prev()" [disabled]="disabled_prev"> &#60; </button>
-      <!--<Pokemon  :poke_id="id" :max_poke="max_poke" @modify="desalock" @request="responseRequest"/>-->
-      <app-pokemon [poke_id]="id" (modify)="desalock()" (request)="responseRequest($event)"></app-pokemon>
+      <app-pokemon [poke_id]="id" [MAX_POKE]="MAX_POKE"  (modify)="desalock()" (request)="responseRequest($event)"></app-pokemon>
       <button type="button" id = 'next' class="btn btn-primary" (click)="next()" [disabled]="disabled_next"> > </button>
   </div>
 </div>

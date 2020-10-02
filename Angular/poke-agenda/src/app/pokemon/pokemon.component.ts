@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, DoCheck, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-pokemon',
@@ -8,7 +8,8 @@ import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 export class PokemonComponent implements OnInit {
 
 	@Input() poke_id : number;
-
+	@Input() MAX_POKE : number;
+  
   //Events
 	@Output() request = new EventEmitter();
 	@Output() modify = new EventEmitter();
@@ -31,7 +32,49 @@ export class PokemonComponent implements OnInit {
     this.abilities = []; 
   }
 
+  upperCase(word){
+    return word[0].toUpperCase() + word.slice(1);
+  }
+
+  updatePokemon(id){
+    fetch('https://pokeapi.co/api/v2/pokemon/'+id, {"method": "GET"})
+      .then(response => response.json())
+      .then(response => {
+
+        if(response.id<=this.MAX_POKE){
+
+          let name = this.upperCase(response.name);
+
+          this.id = response.id;
+          this.name = name;
+          this.url_image = response.sprites.other['official-artwork'].front_default;
+          this.stats = response.stats;
+          this.types = response.types;
+          this.abilities= response.abilities
+
+          this.request.emit({failure : false, newID : response.id});
+        }else{
+          this.request.emit({failure : true, newID : this.id});
+        }
+      })
+      .catch(err => {
+        this.request.emit({failure : true, newID : this.id});
+        console.log(err);
+      });
+ 	}
+
+ 	setGridColumns(length){
+    return { gridTemplateColumns: 'repeat(' + length +', 1fr)'};
+  }
+
   ngOnInit(): void {
+  	this.updatePokemon(this.poke_id);
+  }
+
+  ngDoCheck(){
+  	if(this.poke_id !== this.id){
+  		this.updatePokemon(this.poke_id);
+  	}
   }
 
 }

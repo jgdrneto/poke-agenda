@@ -76,26 +76,26 @@
   margin-bottom: 8px;
 }
 
-.bg-hp{
-  background-color: red;
+::ng-deep .bg-hp {
+  background-color: red; 
 }
 
-.bg-atk{
+::ng-deep .bg-atk{
   background-color: orange;
 }
 
-.bg-def{
+::ng-deep .bg-def{
   background-color: yellow;
 }
 
-.bg-spAtk{
+::ng-deep .bg-spAtk{
   background-color: blue;
 }
 
-.bg-spDef{
+::ng-deep .bg-spDef{
   background-color: green;
 }
 
-.bg-speed{
+::ng-deep .bg-speed{
   background-color: pink;
 }

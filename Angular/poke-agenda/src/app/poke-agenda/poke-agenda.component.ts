@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
-const MAX_POKE: number = 151;
+import { Component, OnInit, DoCheck } from '@angular/core';
 
 @Component({
   selector: 'app-poke-agenda',
@@ -9,6 +7,7 @@ const MAX_POKE: number = 151;
 })
 export class PokeAgendaComponent implements OnInit {
 
+  MAX_POKE : number = 151;
 	id : number;
 	mode: String;
 	disabled_prev : Boolean;
@@ -16,7 +15,7 @@ export class PokeAgendaComponent implements OnInit {
 	failure :  Boolean;
 
   constructor() {
-  	this.id = 1;
+    this.id = 1;
   	this.mode = "pokemon"; 
   	this.disabled_prev = true;
   	this.disabled_next = false;
@@ -32,7 +31,7 @@ export class PokeAgendaComponent implements OnInit {
   }
 
   next(){
-  	if(this.id<MAX_POKE){
+  	if(this.id<this.MAX_POKE){
       this.id +=1;
       this.disabled_prev = true;
       this.disabled_next = true;
@@ -47,7 +46,7 @@ export class PokeAgendaComponent implements OnInit {
     if(this.id===1){
       d_prev = true;
     }else{
-      if(this.id === MAX_POKE){
+      if(this.id === this.MAX_POKE){
       	d_next = true;
       }
     }
@@ -75,7 +74,7 @@ export class PokeAgendaComponent implements OnInit {
   ngOnInit(): void {
   
   }
-
+  
   onSearch(event){
   	this.id = event.target.value.toLowerCase();
     this.disabled_prev = true;

@@ -1,1 +1,39 @@
-<p>pokemon works!</p>
+<div>
+  <div class="item">
+    <img class="PokeImage" (load)="modify.emit($event)" [src]="url_image" alt="Pokemon"/>
+  </div>
+  <div class="header item">
+    <h2 class="name"> {{id}} - {{name}}</h2>
+    <div class="logosTypes" [style]="setGridColumns(types.length)">
+      <div> logo1 </div>
+      <div> logo2 </div>	
+      <!--
+      <div *ng-for="let value of this.types" class="icon" [class]="value.type.name" [key]="index">
+          <img [src]="getLogo(value.type.name)" class="iconSvg" [alt]="value.type.name + ' type'" />
+      </div>
+			-->
+    </div>
+  </div> 
+  <div class="item itemAbility">
+    <h5> Abilities </h5>
+    <div class="abilities" [style]="setGridColumns(abilities.length)">
+      <div *ngFor="let value of abilities" [key]="index">
+        <div *ngIf="value.is_hidden" class="star"> &#9733; </div>
+        <p class="pAbility"> {{value.ability.name}} </p>
+      </div>
+    </div>	
+  </div>
+  <div class="item itemStats">
+    <h5> Stats </h5>
+    <div class="stats">
+      <h6> HP </h6>           <h6> {{stats[0].base_stat}}</h6> <div class="divProgressBar"> <ngb-progressbar type="hp" max="255" [value] = "stats[0].base_stat"></ngb-progressbar> </div>
+      <h6> Attack </h6>       <h6> {{stats[1].base_stat}}</h6> <div class="divProgressBar"> <ngb-progressbar type="atk" max="255" [value]="stats[1].base_stat"></ngb-progressbar> </div>
+      <h6> Defense </h6>      <h6> {{stats[2].base_stat}}</h6> <div class="divProgressBar"> <ngb-progressbar type="def" max="255" [value]="stats[2].base_stat"></ngb-progressbar> </div>
+      <h6> SP. Attack </h6>   <h6> {{stats[3].base_stat}}</h6> <div class="divProgressBar"> <ngb-progressbar type="spAtk" max="255" [value]="stats[3].base_stat"></ngb-progressbar> </div>
+      <h6> SP. Defense </h6>  <h6> {{stats[4].base_stat}}</h6> <div class="divProgressBar"> <ngb-progressbar type="spDef" max="255" [value]="stats[4].base_stat"></ngb-progressbar> </div>
+      <h6> Speed </h6>        <h6> {{stats[5].base_stat}}</h6> <div class="divProgressBar"> <ngb-progressbar type="speed" max="255" [value]="stats[5].base_stat"></ngb-progressbar> </div>
+    	<!--
+    	-->
+    </div>
+  </div>  
+</div>
