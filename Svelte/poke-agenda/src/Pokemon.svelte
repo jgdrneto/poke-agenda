@@ -7,24 +7,32 @@
     </div>
     <div class='header item'>
       <h2 class='name'> {poke_id} - {name}</h2>
-      <!--
-      <div class='logosTypes' :style="setGridColumns(this.types.length)" >
+      
+      <div class='logosTypes' style={setGridColumns(types.length)} >
+        <div> logo 1</div>
+        <div> logo 2</div>
+      <!--  
         <div v-for="(value,index) in this.types" class="icon" :class="value.type.name" :key="index">
             <img :src="getLogo(value.type.name)" class="iconSvg" :alt="value.type.name + ' type'" />
         </div>
+      -->	
       </div>
-    	-->
+
     </div> 
     <div class='item itemAbility'>
       <h5> Abilities </h5>
-      <!--
-      <div class='abilities' :style="setGridColumns(this.abilities.length)">
+      <div class='abilities' style={setGridColumns(abilities.length)}>
+        <div> abi 1</div>
+        <div> abi 2</div>
+
+        <!--
         <div v-for="(value,index) in this.abilities" :key="index">
           <div v-if="value.is_hidden" class="star"> &#9733; </div>
           <p class="pAbility"> {{value.ability.name}} </p>
         </div>
+      	-->
       </div>
-    	-->
+    	
     </div>
     <div class='item itemStats'>
       <h5> Stats </h5>
@@ -55,15 +63,17 @@
 	let url_image= "";
 	let name="";
 	let stats = [{base_stat : 0},{base_stat : 0},{base_stat : 0}, {base_stat : 0},{base_stat: 0},{base_stat:0}];
-	let types ={};
-	let abilities = {};
+	let types = [];
+	let abilities = [];
 
 	onMount(()=>{
   	updatePokemon(id);
   });
 
 	afterUpdate(() => {
-		updatePokemon(id);
+		if(poke_id !== id){
+			updatePokemon(id);
+		}
 	});
 
 	function loadImage(){
@@ -101,6 +111,9 @@
     });
   }
 
+  function setGridColumns(length){
+    return "grid-template-columns: repeat(" + length+ ", 1fr)";
+  }
 
 </script>
 
