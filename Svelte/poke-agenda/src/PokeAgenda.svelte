@@ -1,18 +1,11 @@
 <main>
 	<div class='PokemonName'>
     <h2>PokéAgenda-Svelte </h2>
-    <!--<Searcher :failure="failure" @close="close" @search="search"/>-->
-    <Searcher {failure} on:close={onClose} on:search={onSearch}/>
+    <Searcher {failure} on:close={close} on:search={search}/>
     <div class="carousel">
-      <Button id="prev" color='primary' size ='lg'>  &#60; </Button>
-    	<Pokemon/>
-    	<Button id="next" color='primary' size='lg'> > </Button>
-      
-      <!--
-      <b-button id = 'prev' @click="prev" :disabled="disabled_prev" size='lg'> &#60; </b-button>
-      <Pokemon  :poke_id="id" :max_poke="max_poke" @modify="desalock" @request="responseRequest"/>
-      <b-button id = 'next' @click="next" :disabled="disabled_next" size='lg'> > </b-button>
-    	-->
+      <Button id="prev" on:click={prev} color='primary' disabled={disabled_prev} size ='lg'>  &#60; </Button>
+    	<Pokemon {id} {max_poke} on:modify={desalock} on:request={responseRequest}/>
+    	<Button id="next" on:click={next} color='primary' disabled={disabled_next} size='lg'> > </Button>
     </div>
   </div> 
 </main>
@@ -27,20 +20,70 @@
 	import { Button } from 'sveltestrap';
 
 	let id = 1;
-	let failure = true;
+	let failure = false;
 	let disabled_prev = true;
 	let disabled_next = false;
 	let max_poke = 151;
- 
-	function onSearch(event) {
+  
+  function prev(){
+    if(id>1){
+      id -= 1;
+      disabled_prev = true;
+      disabled_next = true;
+    }
+  }
+  function next(){
+    if(id<max_poke){
+      id +=1;
+      disabled_prev = true;
+      disabled_next = true;
+    }
+  }
+
+	function search(event) {
       id = event.detail.toLowerCase();
       disabled_prev = true;
       disabled_next = true;
   }
 
-  function onClose(){
+  function close(){
     failure = false;
   }
+
+  function desalock(){
+
+  	let d_next = false;
+    let d_prev = false;
+
+    if(id===1){
+    	d_prev = true;
+    }else{
+    	if(id === max_poke){
+      	d_next = true;
+      }
+    }
+
+    disabled_prev = d_prev;
+    disabled_next = d_next;
+ 	}
+
+ 	function responseRequest(event){
+    let newFailure = event.detail.failure;
+    let newID = event.detail.newID; 
+    
+    let f=false;
+
+    if(failure || newFailure){
+        f = true;
+    }
+
+    failure = f;
+    id = newID;
+
+    if(failure){
+      desalock();
+    }
+  } 
 
 </script>
 

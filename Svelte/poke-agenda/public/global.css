@@ -1,63 +1,84 @@
-html, body {
-	position: relative;
-	width: 100%;
-	height: 100%;
+
+.iconSvg {
+    height: 60%;
+    width: 60%;
+    margin: 20%;
 }
 
-body {
-	color: #333;
-	margin: 0;
-	padding: 8px;
-	box-sizing: border-box;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+.icon:hover{
+    filter: saturate(200%);
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
-a {
-	color: rgb(0,100,200);
-	text-decoration: none;
+.bug {
+    background: #92BC2C;
 }
 
-a:hover {
-	text-decoration: underline;
+.dark {
+    background: #595761;
 }
 
-a:visited {
-	color: rgb(0,80,160);
+.dragon {
+    background: #0C69C8;
 }
 
-label {
-	display: block;
+.electric {
+    background: #F2D94E;
 }
 
-input, button, select, textarea {
-	font-family: inherit;
-	font-size: inherit;
-	-webkit-padding: 0.4em 0;
-	padding: 0.4em;
-	margin: 0 0 0.5em 0;
-	box-sizing: border-box;
-	border: 1px solid #ccc;
-	border-radius: 2px;
+.fire {
+    background: #FBA54C;
 }
 
-input:disabled {
-	color: #ccc;
+.fairy {
+    background: #EE90E6;
 }
 
-button {
-	color: #333;
-	background-color: #f4f4f4;
-	outline: none;
+.fighting {
+    background: #D3425F;
 }
 
-button:disabled {
-	color: #999;
+.flying {
+    background: #A1BBEC;
 }
 
-button:not(:disabled):active {
-	background-color: #ddd;
+.ghost {
+    background: #5F6DBC;
 }
 
-button:focus {
-	border-color: #666;
+.grass {
+    background: #5FBD58;
+}
+
+.ground {
+    background: #DA7C4D;
+}
+
+.ice {
+    background: #75D0C1;
+}
+
+.normal {
+    background: #A0A29F;
+}
+
+.poison {
+    background: #B763CF;
+}
+
+.psychic {
+    background: #FA8581;
+}
+
+.rock {
+    background: #C9BB8A;
+}
+
+.steel {
+    background: #5695A3;
+}
+
+.water {
+    background: #539DDF;
 }
