@@ -56,7 +56,7 @@
       size: 2 
     }),
     watch: { 
-      poke_id: function(newVal) { // watch it
+      poke_id: function(newVal) {
         this.updatePokemon(newVal);
       }
     },
