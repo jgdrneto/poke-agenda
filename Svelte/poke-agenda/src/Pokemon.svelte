@@ -9,42 +9,37 @@
       <h2 class='name'> {poke_id} - {name}</h2>
       
       <div class='logosTypes' style={setGridColumns(types.length)} >
-        <div> logo 1</div>
-        <div> logo 2</div>
-      <!--  
-        <div v-for="(value,index) in this.types" class="icon" :class="value.type.name" :key="index">
-            <img :src="getLogo(value.type.name)" class="iconSvg" :alt="value.type.name + ' type'" />
-        </div>
-      -->	
+      	{#each types as value}
+      		<div class={"icon " + value.type.name}>
+      			<img src={getLogo(value.type.name)} class="iconSvg" alt={value.type.name + ' type'} />
+      		</div>
+      	{/each}
       </div>
 
     </div> 
     <div class='item itemAbility'>
       <h5> Abilities </h5>
       <div class='abilities' style={setGridColumns(abilities.length)}>
-        <div> abi 1</div>
-        <div> abi 2</div>
-
-        <!--
-        <div v-for="(value,index) in this.abilities" :key="index">
-          <div v-if="value.is_hidden" class="star"> &#9733; </div>
-          <p class="pAbility"> {{value.ability.name}} </p>
-        </div>
-      	-->
+       	{#each abilities as value}
+       		<div>
+       			{#if value.is_hidden}
+          	<div class="star"> &#9733; </div>
+          	{/if}
+          	<p class="pAbility"> {value.ability.name} </p>
+      		</div>
+      	{/each}
       </div>
     	
     </div>
     <div class='item itemStats'>
       <h5> Stats </h5>
       <div class="stats">
-        <!--
-        <h6> HP </h6>           <h6> {{this.stats[0].base_stat}}</h6> <div class="divProgressBar"> <b-progress variant="hp" :max="255" :value="this.stats[0].base_stat"></b-progress> </div>
-        <h6> Attack </h6>       <h6> {{this.stats[1].base_stat}}</h6> <div class="divProgressBar"> <b-progress variant="atk" :max="255" :value="this.stats[1].base_stat"/> </div>
-        <h6> Defense </h6>      <h6> {{this.stats[2].base_stat}}</h6> <div class="divProgressBar"> <b-progress variant="def" :max="255" :value="this.stats[2].base_stat"/> </div>
-        <h6> SP. Attack </h6>   <h6> {{this.stats[3].base_stat}}</h6> <div class="divProgressBar"> <b-progress variant="spAtk" :max="255" :value="this.stats[3].base_stat"/> </div>
-        <h6> SP. Defense </h6>  <h6> {{this.stats[4].base_stat}}</h6> <div class="divProgressBar"> <b-progress variant="spDef" :max="255" :value="this.stats[4].base_stat"/> </div>
-        <h6> Speed </h6>        <h6> {{this.stats[5].base_stat}}</h6> <div class="divProgressBar"> <b-progress variant="speed" :max="255" :value="this.stats[5].base_stat"/> </div>
-      	-->
+        <h6> HP </h6>           <h6> {stats[0].base_stat}</h6> <div class="divProgressBar"> <Progress color="hp" max={255} value={stats[0].base_stat}/></div>
+        <h6> Attack </h6>       <h6> {stats[1].base_stat}</h6> <div class="divProgressBar"> <Progress color="atk" max={255} value={stats[1].base_stat}/> </div>
+        <h6> Defense </h6>      <h6> {stats[2].base_stat}</h6> <div class="divProgressBar"> <Progress color="def" max={255} value={stats[2].base_stat}/> </div>
+        <h6> SP. Attack </h6>   <h6> {stats[3].base_stat}</h6> <div class="divProgressBar"> <Progress color="spAtk" max={255} value={stats[3].base_stat}/> </div>
+        <h6> SP. Defense </h6>  <h6> {stats[4].base_stat}</h6> <div class="divProgressBar"> <Progress color="spDef" max={255} value={stats[4].base_stat}/> </div>
+        <h6> Speed </h6>        <h6> {stats[5].base_stat}</h6> <div class="divProgressBar"> <Progress color="speed" max={255} value={stats[5].base_stat}/> </div>
       </div>
     </div>  
   </div>
@@ -52,7 +47,7 @@
 
 <script>
 	import { createEventDispatcher, onMount, afterUpdate } from 'svelte'
-	import {  } from 'sveltestrap';
+	import { Progress } from 'sveltestrap';
 
 	const dispatcher = createEventDispatcher();
 
@@ -73,8 +68,13 @@
 	afterUpdate(() => {
 		if(poke_id !== id){
 			updatePokemon(id);
+			changeColor();
 		}
 	});
+
+	function changeColor(){
+
+	}
 
 	function loadImage(){
 		dispatcher('modify');
@@ -115,9 +115,14 @@
     return "grid-template-columns: repeat(" + length+ ", 1fr)";
   }
 
+  function getLogo(name){
+  	return "../assets/icons/"+name+".svg";
+  }
+
 </script>
 
 <style>
+
 	.PokeImage{
 	  width: 30%;
 	}
@@ -196,27 +201,27 @@
 	  margin-bottom: 8px;
 	}
 
-	.bg-hp{
-	  background-color: red;
+	div :global(.bg-hp){
+		background-color: red;
 	}
 
-	.bg-atk{
+	div :global(.bg-atk){
 	  background-color: orange;
 	}
 
-	.bg-def{
+	div :global(.bg-def){
 	  background-color: yellow;
 	}
 
-	.bg-spAtk{
+	div :global(.bg-spAtk){
 	  background-color: blue;
 	}
 
-	.bg-spDef{
+	div :global(.bg-spDef){
 	  background-color: green;
 	}
 
-	.bg-speed{
+	div :global(.bg-speed){
 	  background-color: pink;
 	}
 </style>

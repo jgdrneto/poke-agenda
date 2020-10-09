@@ -106,6 +106,7 @@ class PokeAgenda extends React.Component{
   	switch(this.state.mode){
   		case 'pokemon' :
   			page =	<div className='PokemonName'>
+                  <h1>PokéAgenda-React </h1>
                   <Searcher search_failure={this.state.search_failure} onKeyUp={this.search} onCloseAlert={this.closeAlert}/>
   								<div className='carousel'>
                     <Button  id = 'prev' onClick={event => this.prev(event)} disabled={this.state.disabled_prev} size='lg'  > &#60; </Button>

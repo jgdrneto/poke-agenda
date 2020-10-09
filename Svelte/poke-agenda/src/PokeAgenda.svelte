@@ -1,6 +1,6 @@
 <main>
 	<div class='PokemonName'>
-    <h2>PokéAgenda-Svelte </h2>
+    <h1>PokéAgenda-Svelte </h1>
     <Searcher {failure} on:close={close} on:search={search}/>
     <div class="carousel">
       <Button id="prev" on:click={prev} color='primary' disabled={disabled_prev} size ='lg'>  &#60; </Button>
