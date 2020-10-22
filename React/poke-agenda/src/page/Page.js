@@ -6,18 +6,15 @@ import Pokemon from '../pokemon/Pokemon'
 import Searcher from '../searcher/Searcher'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './poke_agenda.css'
+import './page.css'
 
-class PokeAgenda extends React.Component{
-
-	max_poke = 151;
+class Page extends React.Component{
 
 	constructor(props) {
   	super(props);
-    
+
     this.state = {
       id : 1,
-      mode: 'pokemon',
       disabled_prev: true,
       disabled_next: false,
       search_failure: false 
@@ -40,13 +37,16 @@ class PokeAgenda extends React.Component{
   }
 
   next(){
-  	if(this.state.id<this.max_poke){
-  		this.setState((state,props)=>({
+
+  	if(this.state.id<this.props.max){
+
+      this.setState((state,props)=>({
   			id : state.id+1,
         disabled_prev: true,
         disabled_next: true
   		}));
   	}
+    
   }
 
   search(event){
@@ -67,7 +67,7 @@ class PokeAgenda extends React.Component{
       });
   }
 
-  responseRequest(failure,newID,pokeName){
+  responseRequest(failure,newID){
     let f=false;
 
     if(this.state.search_failure || failure){
@@ -76,7 +76,6 @@ class PokeAgenda extends React.Component{
 
     this.setState((state,props) => ({
       id: newID,
-      poke_name : pokeName.toLowerCase(),
       search_failure: f
     })); 
   }
@@ -89,7 +88,7 @@ class PokeAgenda extends React.Component{
     if(this.state.id===1){
       d_prev = true;
     }else{
-      if(this.state.id === this.max_poke){
+      if(this.state.id === this.props.max){
         d_next = true;
       }
     }
@@ -101,28 +100,35 @@ class PokeAgenda extends React.Component{
   }
 
   render(){
-  	
-  	let page = {};
-  	switch(this.state.mode){
-  		case 'pokemon' :
-  			page =	<div className='PokemonName'>
-                  <h1>PokéAgenda-React </h1>
-                  <Searcher search_failure={this.state.search_failure} onKeyUp={this.search} onCloseAlert={this.closeAlert}/>
-  								<div className='carousel'>
-                    <Button  id = 'prev' onClick={event => this.prev(event)} disabled={this.state.disabled_prev} size='lg'  > &#60; </Button>
-                    <Pokemon poke_id={this.state.id} onModify={this.desalock} onRequest={this.responseRequest}/>
-                    <Button id = 'next' onClick={event => this.next(event)} disabled={this.state.disabled_next} size='lg'> > </Button>  						 			
-  						 		</div>
-  						 	</div>;
-  		break;
-  		default:
-  			page = <div></div>;
-  	}
+  	let item = {};
 
-  	return page;
+    switch(this.props.mode){
+      case "item":
+        item = {};
+      break;
+      case "type":
+        item = {};
+      break;
+      default:
+        item = <Pokemon poke_id={this.state.id} onModify={this.desalock} onRequest={this.responseRequest}/>;  
+    }
+
+  	let page = {};
+    
+  	page =	<div className='Page'>
+              <h1>PokéAgenda-React </h1>
+              <Searcher search_failure={this.state.search_failure} onKeyUp={this.search} onCloseAlert={this.closeAlert}/>
+  						<div className='carousel'>
+                <Button  id = 'prev' onClick={event => this.prev(event)} disabled={this.state.disabled_prev} size='lg'  > &#60; </Button>
+                {item}
+                <Button id = 'next' onClick={event => this.next(event)} disabled={this.state.disabled_next} size='lg'> > </Button>  						 			
+  						</div>
+  					</div>;
+  	
+    return page;
 
   }
 
 }
 
-export default PokeAgenda;
+export default Page;

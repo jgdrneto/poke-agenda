@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import PokeAgenda from './poke_agenda/poke_agenda';
+import PokePage from './poke_page/poke_page';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <PokeAgenda/>
+    <PokePage/>
   </React.StrictMode>,
   document.getElementById('root')
 );
