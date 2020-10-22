@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import PokeAgenda from './poke_agenda';
+import PokeAgenda from './poke_agenda/poke_agenda';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(

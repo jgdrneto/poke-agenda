@@ -2,8 +2,8 @@ import React from 'react';
 
 import Button from 'react-bootstrap/Button';
 
-import Pokemon from './pokemon/Pokemon'
-import Searcher from './searcher/Searcher'
+import Pokemon from '../pokemon/Pokemon'
+import Searcher from '../searcher/Searcher'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './poke_agenda.css'
