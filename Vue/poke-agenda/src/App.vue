@@ -1,5 +1,5 @@
 <template>
-  <PokeAgenda/>
+  <PokePage/>
 </template>
 
 <script>
@@ -13,12 +13,12 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 
-import PokeAgenda from './components/PokeAgenda.vue'
+import PokePage from './components/PokePage.vue'
 
 export default {
   name: 'App',
   components: {
-    PokeAgenda
+    PokePage
   }
 }
 </script>

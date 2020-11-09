@@ -1,10 +1,12 @@
 <template>
-  <div class='PokemonName'>
+  <div class='Page'>
     <h1>PokéAgenda-Vue </h1>
     <Searcher :failure="failure" @close="close" @search="search"/>
     <div class="carousel">
       <b-button id = 'prev' @click="prev" :disabled="disabled_prev" size='lg'> &#60; </b-button>
-      <Pokemon  :poke_id="id" :max_poke="max_poke" @modify="desalock" @request="responseRequest"/>
+      <Pokemon v-if="mode === 'pokemon'" :poke_id="id" :max_poke="max" @modify="desalock" @request="responseRequest"/>
+      <h1 v-else-if="mode === 'item'" >ITEM</h1>
+      <h1 v-else-if="mode === 'type'" >TYPE</h1>
       <b-button id = 'next' @click="next" :disabled="disabled_next" size='lg'> > </b-button>
     </div>
   </div>  
@@ -17,10 +19,17 @@ import Searcher from './Searcher'
 
 export default {
   components: { Searcher, Pokemon },
+  props: {
+    mode :{
+      required: true
+    },
+    max:{
+      type: Number,
+      required: true
+    } 
+  },
   data: () => ({
-    max_poke: 151,
     id: 1,
-    mode: 'pokemon',
     disabled_prev: true,
     disabled_next: false,
     failure: false
@@ -44,7 +53,7 @@ export default {
     next(){
       //console.log(this);
 
-      if(this.id<this.max_poke){
+      if(this.id<this.max){
         this.id +=1;
         this.disabled_prev = true;
         this.disabled_next = true;
@@ -58,7 +67,7 @@ export default {
       if(this.id===1){
         d_prev = true;
       }else{
-        if(this.id === this.max_poke){
+        if(this.id === this.max){
           d_next = true;
         }
       }
@@ -87,9 +96,8 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-  .PokemonName{
+  .Page{
     margin: 0 auto;
     width: 50%;
     padding: 5px;
