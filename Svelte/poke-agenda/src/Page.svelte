@@ -6,7 +6,11 @@
       <Button id="prev" on:click={prev} color='primary' disabled={disabled_prev} size ='lg'>  &#60; </Button>
     	{#if item === 'pokemon'}      
         <Pokemon {id} max_poke={max} on:modify={desalock} on:request={responseRequest}/>
-    	{/if}
+    	{:else if item === 'item'}
+        <h1>ITEM</h1>
+      {:else if item === 'type'}
+        <h1>TYPE</h1>
+      {/if}
       <Button id="next" on:click={next} color='primary' disabled={disabled_next} size='lg'> > </Button>
     </div>
   </div> 
