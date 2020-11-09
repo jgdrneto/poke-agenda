@@ -1,9 +1,9 @@
 <main>
-	<PokeAgenda/>
+	<PokePage/>
 </main>
 
 <script>
-		import PokeAgenda from './PokeAgenda.svelte';
+		import PokePage from './PokePage.svelte';
 </script>
 
 <style>

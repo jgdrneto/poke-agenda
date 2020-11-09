@@ -1,11 +1,13 @@
 <main>
-	<div class='PokemonName'>
+	<div class='Page'>
     <h1>PokéAgenda-Svelte </h1>
     <Searcher {failure} on:close={close} on:search={search}/>
     <div class="carousel">
       <Button id="prev" on:click={prev} color='primary' disabled={disabled_prev} size ='lg'>  &#60; </Button>
-    	<Pokemon {id} {max_poke} on:modify={desalock} on:request={responseRequest}/>
-    	<Button id="next" on:click={next} color='primary' disabled={disabled_next} size='lg'> > </Button>
+    	{#if item === 'pokemon'}      
+        <Pokemon {id} max_poke={max} on:modify={desalock} on:request={responseRequest}/>
+    	{/if}
+      <Button id="next" on:click={next} color='primary' disabled={disabled_next} size='lg'> > </Button>
     </div>
   </div> 
 </main>
@@ -19,12 +21,14 @@
 	
 	import { Button } from 'sveltestrap';
 
-	let id = 1;
+  export let item;
+  export let max;
+	
+  let id = 1;
 	let failure = false;
 	let disabled_prev = true;
 	let disabled_next = false;
-	let max_poke = 151;
-  
+	
   function prev(){
     if(id>1){
       id -= 1;
@@ -33,7 +37,7 @@
     }
   }
   function next(){
-    if(id<max_poke){
+    if(id<max){
       id +=1;
       disabled_prev = true;
       disabled_next = true;
@@ -58,7 +62,7 @@
     if(id===1){
     	d_prev = true;
     }else{
-    	if(id === max_poke){
+    	if(id === max){
       	d_next = true;
       }
     }
@@ -88,7 +92,7 @@
 </script>
 
 <style>
-	.PokemonName{
+	.Page{
     margin: 0 auto;
     width: 50%;
     padding: 5px;
