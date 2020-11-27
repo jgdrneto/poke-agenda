@@ -36,9 +36,14 @@ export default {
   }),
   methods: {
     search(value) {
-      this.id = value.toLowerCase();
-      this.disabled_prev = true;
-      this.disabled_next = true;  
+
+      if (value === "") {
+        console.log("VALIDATION: Empty field is not allowed");
+      }else{
+        this.id = value.toLowerCase();
+        this.disabled_prev = true;
+        this.disabled_next = true;  
+      }
     },
     close(){
       this.failure = false;
