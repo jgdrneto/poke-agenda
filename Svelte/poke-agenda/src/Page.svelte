@@ -49,9 +49,14 @@
   }
 
 	function search(event) {
+
+    if(event.detail === ""){  
+      console.log("VALIDATION: Empty field is not allowed");
+    }else{
       id = event.detail.toLowerCase();
       disabled_prev = true;
       disabled_next = true;
+    }
   }
 
   function close(){
