@@ -51,9 +51,14 @@ class Page extends React.Component{
 
   search(event){
     if(event.keyCode === 13){
-      this.setState({
-        id : event.target.value.toLowerCase()
-      });
+
+      if(event.target.value === ""){
+        console.log("VALIDATION: Empty field is not allowed");
+      }else{
+        this.setState({
+          id : event.target.value.toLowerCase()
+        });
+      }  
     }else{
       this.setState({
         search_failure : false
