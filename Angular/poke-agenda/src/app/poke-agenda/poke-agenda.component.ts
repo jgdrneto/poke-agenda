@@ -76,9 +76,13 @@ export class PokeAgendaComponent implements OnInit {
   }
   
   onSearch(event){
-  	this.id = event.target.value.toLowerCase();
-    this.disabled_prev = true;
-    this.disabled_next = true; 
+    if(event.target.value === ""){
+      console.log("VALIDATION: Empty field is not allowed");
+    }else{  
+    	this.id = event.target.value.toLowerCase();
+      this.disabled_prev = true;
+      this.disabled_next = true; 
+    }
   }
 
   onClose(event){
