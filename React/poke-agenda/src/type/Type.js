@@ -29,12 +29,14 @@ class Type extends React.Component{
  
   constructor(props) {
   	super(props);
+  		
     this.state = {
       id : this.props.type_id,
       name : '',
       logo : null,
       types :[{name : '', damage: ' ', url: ''}]	
   	}
+
   }	
 
   upperCase(word){
@@ -114,7 +116,6 @@ class Type extends React.Component{
 			for (let nd_index = 0; nd_index < no_damage.length; nd_index++) {
 
 				if(no_damage[nd_index].name === types[t_index].name){
-					console.log('entrou');
 					types[t_index].damage = 'no_damage'; 
 				}
 			}
@@ -212,7 +213,7 @@ class Type extends React.Component{
 			logo = this.getLogo(this.state.types[index].name);
 			alt_name = this.upperCase(this.state.types[index].name) + ' type';
 		
-			let logo_type = 	<div className={class_name} key={index}>
+			let logo_type = 	<div className={class_name} key={index} onClick={event => this.props.onChangeType(this.state.types[index].name)}>
 	      									<img src={logo} className='iconSvg' alt={alt_name} />
 	      								</div>;
 

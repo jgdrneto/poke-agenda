@@ -18,16 +18,6 @@
   margin-bottom: 5px;
 }
 
-.itemAbility{
-  margin-right: 2%;
-  margin-left: 2%;
-}
-
-.itemStats{
-  margin-right: 5%;
-  margin-left: 5%;
-}
-
 .name{
   display: inline;
   margin-right: 10px;
@@ -63,62 +53,4 @@
 
 .double_damage{
   background: green;
-}
-
-.divAbilities{
-  display: inline-flex;
-}
-
-.abilities{
-  margin: auto auto;
-  display: grid;
-  align-content: center;
-  align-items: center;
-}
-
-.pAbility{
-  margin-bottom: 0px;
-  display: inline;
-}
-
-.star{
-  color: yellow;
-  display: inline;
-}
-
-.stats{
-  width: 100%;
-  margin: auto auto;
-  display: grid;
-  grid-template-columns: 100px 40px 1fr;
-  align-content: center;
-  align-items: center;
-}
-
-.divProgressBar{
-  margin-bottom: 8px;
-}
-
-.bg-hp{
-  background-color: red;
-}
-
-.bg-atk{
-  background-color: orange;
-}
-
-.bg-def{
-  background-color: yellow;
-}
-
-.bg-spAtk{
-  background-color: blue;
-}
-
-.bg-spDef{
-  background-color: green;
-}
-
-.bg-speed{
-  background-color: pink;
 }

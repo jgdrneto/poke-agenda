@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import PokePage from './poke_page/poke_page';
-import TypePage from './type_page/type_page';
+
+import Page from './page/Page';
+
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+
 import * as serviceWorker from './serviceWorker';
 /*
 ReactDOM.render(
@@ -15,7 +18,12 @@ ReactDOM.render(
 
 ReactDOM.render(
   <React.StrictMode>
-    <TypePage/>
+  	<BrowserRouter>
+			<Switch>
+        <Route exact path="/" component={Page}/>
+        <Route path="/:mode/:id" component={Page}/>
+      </Switch>    
+  	</BrowserRouter> 
   </React.StrictMode>,
   document.getElementById('root')
 );

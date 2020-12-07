@@ -9,14 +9,40 @@ import Searcher from '../searcher/Searcher'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './page.css'
 
+import { Route } from 'react-router-dom'
+
 class Page extends React.Component{
 
 	constructor(props) {
   	super(props);
 
+    let mode = this.props.match.params.mode;
+    let id = this.props.match.params.id;
+
+    if(mode===undefined || id === undefined){
+      mode = 'pokemon';
+      id = 1;
+      this.props.history.push('/pokemon/1');
+    }
+
+    let max;
+
+    switch(mode){
+      case "items":
+        max = {};
+      break;
+      case "types":
+        max = 18;
+      break;  
+      default:
+        max = 151;  
+    }
+
     this.state = {
-      id : 1,
-      disabled_prev: true,
+      id : id,
+      mode: mode,
+      max: max,
+      disabled_prev: false,
       disabled_next: false,
       search_failure: false 
   	}
@@ -25,11 +51,15 @@ class Page extends React.Component{
     this.search = this.search.bind(this);
     this.closeAlert = this.closeAlert.bind(this);
     this.responseRequest = this.responseRequest.bind(this);
+    this.changeType = this.changeType.bind(this);
   }	
 
   prev(){
   	if(this.state.id>1){
-  		this.setState((state,props)=>({
+
+      this.props.history.push('/'+ this.state.mode+'/'+(this.state.id-1));
+
+      this.setState((state,props)=>({
         id : state.id-1,
         disabled_prev: true,
         disabled_next: true
@@ -39,7 +69,9 @@ class Page extends React.Component{
 
   next(){
 
-  	if(this.state.id<this.props.max){
+  	if(this.state.id<this.state.max){
+
+      this.props.history.push('/'+ this.state.mode+'/'+(this.state.id+1));
 
       this.setState((state,props)=>({
   			id : state.id+1,
@@ -80,6 +112,8 @@ class Page extends React.Component{
       f = true;
     }
 
+    this.props.history.push('/'+ this.state.mode+'/'+ newID);
+
     this.setState((state,props) => ({
       id: newID,
       search_failure: f
@@ -94,7 +128,7 @@ class Page extends React.Component{
     if(this.state.id===1){
       d_prev = true;
     }else{
-      if(this.state.id === this.props.max){
+      if(this.state.id === this.state.max){
         d_next = true;
       }
     }
@@ -105,18 +139,28 @@ class Page extends React.Component{
     });
   }
 
+  changeType(name){
+    this.props.history.push('/types/'+ name);
+    this.props.history.go();
+  }  
+
+  changeAbility(name){
+    this.props.history.push('/ability/'+ name);
+    this.props.history.go();
+  } 
+
   render(){
   	let item = {};
 
-    switch(this.props.mode){
-      case "item":
+    switch(this.state.mode){
+      case "items":
         item = {};
       break;
-      case "type":
-        item = <Type type_id={this.state.id} onModify={this.desalock} onRequest={this.responseRequest}/>;
+      case "types":
+        item = <Type type_id={this.state.id} onModify={this.desalock} onRequest={this.responseRequest} onChangeType={this.changeType}/>;
       break;
       default:
-        item = <Pokemon poke_id={this.state.id} onModify={this.desalock} onRequest={this.responseRequest}/>;  
+        item = <Pokemon poke_id={this.state.id} onModify={this.desalock} onRequest={this.responseRequest} onChangeType={this.changeType}/>;  
     }
 
   	let page = {};
@@ -131,7 +175,7 @@ class Page extends React.Component{
   						</div>
   					</div>;
   	
-    return page;
+    return <Route render={props =>(page)}/>;
 
   }
 

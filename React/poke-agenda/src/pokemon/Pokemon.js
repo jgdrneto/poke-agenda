@@ -60,17 +60,21 @@ class Pokemon extends React.Component{
 		.then(response => response.json())
 		.then(response => {
 
-			let name = this.upperCase(response.name);
+			if(response.id<=151){
+				let name = this.upperCase(response.name);
 
-			this.setState({
-			  	id : response.id,
-		  		name: name,
-		  		url_image : response.sprites.other['official-artwork'].front_default,
-		  		stats: response.stats,
-		  	  types: response.types,
-		  	  abilities: response.abilities
-		  });
-		  this.props.onRequest(false,response.id, name);
+				this.setState({
+				  	id : response.id,
+			  		name: name,
+			  		url_image : response.sprites.other['official-artwork'].front_default,
+			  		stats: response.stats,
+			  	  types: response.types,
+			  	  abilities: response.abilities
+			  });
+			  this.props.onRequest(false,response.id, name);
+			}else{
+				this.props.onRequest(true,this.state.id, this.state.name);
+			}  
 		})
 		.catch(err => {
 			
@@ -106,13 +110,13 @@ class Pokemon extends React.Component{
 		let class_name='';
 		let logo = null;
 		let alt_name = '';
-		
+
 		for (let index = 0; index < types.length; index++) {
 			
 			class_name='';
 			logo = null;
 			alt_name = '';
-		
+
 			switch(types[index].type.name){
 				case 'bug':
 					class_name = 'icon bug';
@@ -208,7 +212,7 @@ class Pokemon extends React.Component{
 				
 			}
 
-			let logo_types = 	<div className={class_name} key={index}>
+			let logo_types = 	<div className={class_name} key={index} onClick={event => this.props.onChangeType(types[index].type.name)}>
 	      									<img src={logo} className='iconSvg' alt={alt_name} />
 	      								</div>;
 

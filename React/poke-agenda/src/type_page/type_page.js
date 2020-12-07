@@ -8,9 +8,8 @@ import './type_page.css'
 class TypePage extends React.Component{
 
   render(){
-    
+  	
     return <Page mode={"type"} max={18}/>
-
   }
 
 }
