@@ -3,6 +3,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 
 import Pokemon from '../pokemon/Pokemon'
+import Type from '../type/Type'
 import Searcher from '../searcher/Searcher'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -112,7 +113,7 @@ class Page extends React.Component{
         item = {};
       break;
       case "type":
-        item = {};
+        item = <Type type_id={this.state.id} onModify={this.desalock} onRequest={this.responseRequest}/>;
       break;
       default:
         item = <Pokemon poke_id={this.state.id} onModify={this.desalock} onRequest={this.responseRequest}/>;  

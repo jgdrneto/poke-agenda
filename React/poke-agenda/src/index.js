@@ -2,11 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import PokePage from './poke_page/poke_page';
+import TypePage from './type_page/type_page';
 import * as serviceWorker from './serviceWorker';
-
+/*
 ReactDOM.render(
   <React.StrictMode>
     <PokePage/>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+*/
+
+ReactDOM.render(
+  <React.StrictMode>
+    <TypePage/>
   </React.StrictMode>,
   document.getElementById('root')
 );

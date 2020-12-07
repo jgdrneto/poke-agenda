@@ -38,7 +38,7 @@ class Searcher extends React.Component{
 
   	if(this.state.failure){
   		alert = <Alert variant="danger" onClose={event => this.props.onCloseAlert(event)} dismissible>
-  							<Alert.Heading>Pokemon not found!!!</Alert.Heading>
+  							<Alert.Heading>Not found!!!</Alert.Heading>
   						</Alert>
   	}
 

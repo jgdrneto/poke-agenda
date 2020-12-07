@@ -21,10 +21,11 @@ import WaterLogo from '../icons/water.svg';
 
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 import '../icons/icons.css'
 import './pokemon.css';
+
 
 class Pokemon extends React.Component{
  
