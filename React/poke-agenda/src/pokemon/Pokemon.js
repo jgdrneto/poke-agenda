@@ -20,6 +20,7 @@ import SteelLogo from '../icons/steel.svg';
 import WaterLogo from '../icons/water.svg';
 
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import Alert from 'react-bootstrap/Alert'
 
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -97,7 +98,7 @@ class Pokemon extends React.Component{
 							
 			let ab = 	<div key={index}>
 									{star}
-									<p className='pAbility'> {abilities[index].ability.name} </p>
+									<Alert.Link onClick={event => this.props.onChangeAbility(abilities[index].ability.name)} className='pAbility'> {abilities[index].ability.name} </Alert.Link>
 								</div>
 			abs.push(ab);
 		}

@@ -1,0 +1,31 @@
+
+.PokeImage{
+  width: 30%;
+}
+
+.header{
+  display: inline-flex;
+}
+
+.item{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.effect{
+  height: 100px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.name{
+  display: inline;
+  margin-right: 10px;
+  margin-bottom: 0px;
+}
+
+.star{
+  color: yellow;
+  display: inline;
+}
+

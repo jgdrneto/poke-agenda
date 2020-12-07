@@ -5,6 +5,9 @@
   text-align: center;
 }
 
+.menu{
+  padding: 10px;
+}
 .carousel{
   margin: auto auto;
   display: grid;

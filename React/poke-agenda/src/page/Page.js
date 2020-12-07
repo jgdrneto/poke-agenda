@@ -1,15 +1,17 @@
 import React from 'react';
 
 import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
 
 import Pokemon from '../pokemon/Pokemon'
 import Type from '../type/Type'
+import Ability from '../ability/Ability'
+
 import Searcher from '../searcher/Searcher'
+
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './page.css'
-
-import { Route } from 'react-router-dom'
 
 class Page extends React.Component{
 
@@ -20,21 +22,23 @@ class Page extends React.Component{
     let id = this.props.match.params.id;
 
     if(mode===undefined || id === undefined){
-      mode = 'pokemon';
+      mode = 'pokemons';
       id = 1;
-      this.props.history.push('/pokemon/1');
     }
+
+
 
     let max;
 
     switch(mode){
-      case "items":
-        max = {};
+      case "abilities":
+        max = 268;
       break;
       case "types":
         max = 18;
-      break;  
+      break; 
       default:
+        mode= "pokemons";
         max = 151;  
     }
 
@@ -52,12 +56,12 @@ class Page extends React.Component{
     this.closeAlert = this.closeAlert.bind(this);
     this.responseRequest = this.responseRequest.bind(this);
     this.changeType = this.changeType.bind(this);
+    this.changeAbility = this.changeAbility.bind(this);
+    this.updatePage = this.updatePage.bind(this);
   }	
 
   prev(){
   	if(this.state.id>1){
-
-      this.props.history.push('/'+ this.state.mode+'/'+(this.state.id-1));
 
       this.setState((state,props)=>({
         id : state.id-1,
@@ -70,8 +74,6 @@ class Page extends React.Component{
   next(){
 
   	if(this.state.id<this.state.max){
-
-      this.props.history.push('/'+ this.state.mode+'/'+(this.state.id+1));
 
       this.setState((state,props)=>({
   			id : state.id+1,
@@ -112,8 +114,6 @@ class Page extends React.Component{
       f = true;
     }
 
-    this.props.history.push('/'+ this.state.mode+'/'+ newID);
-
     this.setState((state,props) => ({
       id: newID,
       search_failure: f
@@ -133,6 +133,8 @@ class Page extends React.Component{
       }
     }
 
+    this.props.history.push('/'+ this.state.mode+'/'+ this.state.id);
+
     this.setState({    
       disabled_prev: d_prev,
       disabled_next: d_next
@@ -145,37 +147,50 @@ class Page extends React.Component{
   }  
 
   changeAbility(name){
-    this.props.history.push('/ability/'+ name);
+    console.log(name);
+    this.props.history.push('/abilities/'+ name);
     this.props.history.go();
   } 
+
+  updatePage(path){
+    this.props.history.push(path);
+    this.props.history.go();
+  }
 
   render(){
   	let item = {};
 
     switch(this.state.mode){
-      case "items":
-        item = {};
+      case "abilities":
+        item = <Ability ability_id={this.state.id} onModify={this.desalock} onRequest={this.responseRequest}/>;
       break;
       case "types":
         item = <Type type_id={this.state.id} onModify={this.desalock} onRequest={this.responseRequest} onChangeType={this.changeType}/>;
       break;
       default:
-        item = <Pokemon poke_id={this.state.id} onModify={this.desalock} onRequest={this.responseRequest} onChangeType={this.changeType}/>;  
+        item = <Pokemon poke_id={this.state.id} onModify={this.desalock} onRequest={this.responseRequest} onChangeType={this.changeType} onChangeAbility={this.changeAbility}/>;  
     }
 
   	let page = {};
     
   	page =	<div className='Page'>
               <h1>PokéAgenda-React </h1>
+              <div className="menu">
+                <ButtonGroup aria-label="Basic example">
+                  <Button size="sm" onClick={event => this.updatePage('/pokemons/1')}> Pokemons </Button>
+                  <Button size="sm" onClick={event => this.updatePage('/types/1')}> Types </Button>
+                  <Button size="sm" onClick={event => this.updatePage('/abilities/1')}> Abilities </Button>
+                </ButtonGroup>
+              </div>
               <Searcher search_failure={this.state.search_failure} onKeyUp={this.search} onCloseAlert={this.closeAlert}/>
   						<div className='carousel'>
                 <Button  id = 'prev' onClick={event => this.prev(event)} disabled={this.state.disabled_prev} size='lg'  > &#60; </Button>
                 {item}
                 <Button id = 'next' onClick={event => this.next(event)} disabled={this.state.disabled_next} size='lg'> > </Button>  						 			
   						</div>
-  					</div>;
-  	
-    return <Route render={props =>(page)}/>;
+            </div>; 
+
+    return page;
 
   }
 
