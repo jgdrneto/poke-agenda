@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-import Page from './page/Page';
+import App from './app/App';
 
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 
 import * as serviceWorker from './serviceWorker';
 /*
@@ -19,10 +19,7 @@ ReactDOM.render(
 ReactDOM.render(
   <React.StrictMode>
   	<BrowserRouter>
-			<Switch>
-        <Route exact path="/" component={Page}/>
-        <Route path="/:mode/:id" component={Page}/>
-      </Switch>    
+			<Route path="/" component={App} />    
   	</BrowserRouter> 
   </React.StrictMode>,
   document.getElementById('root')

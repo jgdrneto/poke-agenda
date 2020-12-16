@@ -37,11 +37,12 @@ class Ability extends React.Component{
 		.then(response => {
 
 			let name = this.upperCase(response.name);
+			let effect_text = this.getEffect(response.effect_entries);
 
 			this.setState({
 				  id : response.id,
 			  	name: name,
-			  	effect: response.effect_entries[1].short_effect
+			  	effect: effect_text
 			});
 
 			this.props.onRequest(false,response.id, name);
@@ -53,6 +54,19 @@ class Ability extends React.Component{
 			console.log(err);
 			this.props.onModify('carregou');
 		});
+	}
+
+	getEffect(effects){
+
+		let effect_text = "";
+
+		for (let index = 0; index < effects.length; index++) {
+			if(effects[index].language.name === "en"){
+				effect_text = effects[index].short_effect;
+				break;
+			}
+		}
+		return effect_text;
 	}
 
 	getAbilities(abilities){

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { withRouter } from 'react-router-dom'
+
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 
@@ -20,14 +22,11 @@ class Page extends React.Component{
 
     let mode = this.props.match.params.mode;
     let id = this.props.match.params.id;
-
-    if(mode===undefined || id === undefined){
-      mode = 'pokemons';
-      id = 1;
+    
+    if(id<1){
+      id=1;
     }
-
-
-
+    
     let max;
 
     switch(mode){
@@ -174,7 +173,7 @@ class Page extends React.Component{
   	let page = {};
     
   	page =	<div className='Page'>
-              <h1>PokéAgenda-React </h1>
+              <h5>PokéAgenda-React </h5>
               <div className="menu">
                 <ButtonGroup aria-label="Basic example">
                   <Button size="sm" onClick={event => this.updatePage('/pokemons/1')}> Pokemons </Button>
@@ -196,4 +195,4 @@ class Page extends React.Component{
 
 }
 
-export default Page;
+export default withRouter(Page);

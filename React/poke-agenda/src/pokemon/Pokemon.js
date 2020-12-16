@@ -22,7 +22,7 @@ import WaterLogo from '../icons/water.svg';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Alert from 'react-bootstrap/Alert'
 
-//import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import '../icons/icons.css'
 import './pokemon.css';
